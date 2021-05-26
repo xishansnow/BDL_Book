@@ -1,11 +1,4 @@
----
-created: 2021-05-07T12:13:21 (UTC +08:00)
-tags: []
-source: https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/108439329?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162036073916780262579264%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162036073916780262579264&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-4-108439329.nonecase&utm_term=%E8%B4%9D%E5%8F%B6%E6%96%AF&spm=1018.2226.3001.4450
-author: 
----
-
-# 贝叶斯神经网络最新综述_Paper weekly-CSDN博客
+# 贝叶斯神经网络最新综述
 
 > ## Excerpt
 > ©PaperWeekly 原创 ·作者｜尹娟学校｜北京理工大学博士生研究方向｜随机过程、复杂网络论文标题：Bayesian Neural Networks: An Introducti...
