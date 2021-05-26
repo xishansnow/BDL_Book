@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+_build/
+.vscode/
 .Python
 _build/
 build/
