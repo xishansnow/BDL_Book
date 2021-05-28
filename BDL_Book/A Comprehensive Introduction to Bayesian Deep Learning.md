@@ -159,8 +159,7 @@ Maximum A Posteriori (MAP) estimation; not a full Bayesian treatment. [Hero et a
 
 ## 4.2 Full Predictive Distribution
 
-The full fledged Bayesian approach is to specify a **predictive distribution**  
-_p(y|D,x)_.
+The full fledged Bayesian approach is to specify a **predictive distribution**  p(y|D,x)_.
 
 ![](https://miro.medium.com/max/60/1*NV1SjKTfkg_3UsWHfNAiaw.png?q=20)
 
