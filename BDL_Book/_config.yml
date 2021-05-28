@@ -62,7 +62,7 @@ html:
 #######################################################################################
 # LaTeX-specific settings
 latex:
-  latex_engine              : pdflatex  # one of 'pdflatex', 'xelatex' (recommended for unicode), 'luatex', 'platex', 'uplatex'
+  latex_engine              : xelatex  # one of 'pdflatex', 'xelatex' (recommended for unicode), 'luatex', 'platex', 'uplatex'
   use_jupyterbook_latex     : true # use jupyterbook-latex for pdf builds as default
 
 #######################################################################################
@@ -75,9 +75,9 @@ launch_buttons:
   colab_url                 : "" # The URL of Google Colab (https://colab.research.google.com)
 
 repository:
-  url                       : https://github.com/xishansnow/BayesianAnalysiswithPython2nd  # The URL to your book's repository
+  url                       : https://github.com/xishansnow/BDL_Book  # The URL to your book's repository
   path_to_book              : ""  # A path to your book's folder, relative to the repository root.
-  branch                    : master  # Which branch of the repository should be used when creating links
+  branch                    : main  # Which branch of the repository should be used when creating links
 
 #######################################################################################
 # Advanced and power-user settings
