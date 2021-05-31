@@ -44,7 +44,7 @@
 
 ### 2.1  神经网络
 
-在讨论神经网络的贝叶斯观点之前，简要介绍神经计算的基本原理并定义本章要使用的符号是很重要的。本调查将重点介绍感兴趣的主要网络结构-多层感知器 (MLP) 网络。MLP 是神经网络的基础，现代体系结构如卷积网络具有等价的 MLP 表示。图 2 显示了一个简单的 MLP，它有一个适合于回归或分类的隐藏层。对于具有维度 n1 的输入 x 的该网络，f 网络的输出可以被建模为，
+在讨论神经网络的贝叶斯观点之前，简要介绍神经计算的基本原理并定义本章要使用的符号是很重要的。本调查将重点介绍感兴趣的主要网络结构-多层感知器 (MLP) 网络。MLP 是神经网络的基础，现代体系结构如卷积网络具有等价的 MLP 表示。图 2 显示了一个简单的 MLP，它有一个适合于回归或分类的隐藏层。对于具有维度  $n_1$ 的输入 $x$ 的该网络，$f$ 网络的输出可以被建模为，
 
 ### 2.2 贝叶斯神经网络
 
@@ -84,7 +84,7 @@ $$
 \pi(\boldsymbol{\omega} \mid \mathcal{D})=\frac{p(\boldsymbol{\omega}) p(\mathcal{D} \mid \boldsymbol{\omega})}{\int p(\boldsymbol{\omega}) p(\mathcal{D} \mid \boldsymbol{\omega}) d \boldsymbol{\omega}}=\frac{p(\boldsymbol{\omega}) p(\mathcal{D} \mid \boldsymbol{\omega})}{p(\mathcal{D})} \tag{8}
 $$
 
-后验分布中的分母项称为边缘似然（或证据），其相对于模型权重而言是一个常量，起到对后验进行归一化的作用，以确保后验是有效分布。
+`后验分布中的分母项称为边缘似然（或证据）`，其相对于模型权重而言是一个常量，起到对后验进行归一化的作用，以确保后验是有效分布。
 
 #### （2）基于后验分布做预测
 
@@ -94,7 +94,7 @@ $$
 \mathbb{E}_{\pi}[f]=\int f(\boldsymbol{\omega}) \pi(\boldsymbol{\omega} \mid \mathcal{D}) d \boldsymbol{\omega} \tag{9}
 $$
 
-所有感兴趣的预测量都是上述形式的期望。无论预测均值、方差还是区间，预测量都是基于后验的期望值，它们之间唯一的不同是求取期望的函数 $f(ω)$ 。通过公式可以直观的看出，预测值可被视为函数 $f$  经后验 $π(ω)$ 加权后的平均值。
+所有感兴趣的预测量都是上述形式的期望。无论预测均值、方差还是区间，预测量都是基于后验的期望值，它们之间唯一的不同是求取期望的函数 $f(ω)$ 。通过公式可以直观的看出，预测值可被视为函数 $f$  经后验 $π(ω)$ 加权后的平均值 。
 
 #### （3）基于后验分布做推断
 
@@ -116,9 +116,13 @@ $$
 
 根据本调研和之前的调查报告 `[39]`，可认为贝叶斯神经网络的第一个实例是在 1989 年的 `[40]` 中发表的。该论文通过对神经网络损失函数的统计解释，强调了其主要统计学特性，并证明了均方误差最小化（MSE）等价于求高斯分布的最大似然估计（MLE）。重要的是，通过给网络权重指定先验，可用贝叶斯定理获得适当的后验。此工作虽然给出了对神经网络非常关键的贝叶斯见解，但并没有提供计算边缘似然的方法，也就意味着没有提出任何实用的推断方法。`Denker` 和 `LeCun` `[41]` 1991 年对该工作进行了扩展，提供了一种使用拉普拉斯近似进行近似推断的实用方法。
 
+##### (1) 早期讨论的主要问题
+
 神经网络是一种通用函数逼近器。当单个隐层网络中的参数数量趋近于无穷大时，可以表示任意函数 `[42，43，44]` 。这意味着只要模型有足够参数，就可以用单层神经网络来逼近任何训练数据。但与高次多项式回归类似，虽然表达任意函数的能力增强了（甚至可以精确匹配训练数据），但参数数量的增加会导致过拟合问题。
 
 在 1991 年 `Gull` 和 `Skilling`  `[45]` 的工作基础上，`MacKay` 于 1992 年发表的文章 `《Bayesian interpolation》` `[46]` 展示了如何自然地使用贝叶斯框架处理模型设计和模型比较任务。该工作描述了两个层次的推断：一是用于拟合模型的推断、二是用于评估模型适用性的推断。
+
+##### （2）模型参数推断的统计模型
 
 第一层次的推断是贝叶斯规则用于模型参数更新的典型应用：
 
@@ -132,7 +136,9 @@ $$
 \text{Posterior}=\frac{\text { Likelihood } \times \text { Prior }}{\text { Evidence }} \notag
 $$
 
-注意式 10 中的归一化常数也被称为模型 $\mathcal{H}_i$ 的证据。对于大多数模型，后验的计算非常困难，只能采用近似的方法。在该论文中使用了拉普拉斯近似。
+注意式 10 中的归一化常数也被称为模型 $\mathcal{H}_i$ 的边缘似然。对于大多数模型，后验的计算非常困难，只能采用近似的方法。在该论文中使用了拉普拉斯近似。
+
+##### （3）模型选择推断的统计模型
 
 虽然需要计算参数的后验，但该论文的另一层次目的是展示如何对模型 $\mathcal{H}_i$ 的后验进行评估。其中模型的后验被设计为：
 
@@ -146,30 +152,38 @@ $$
 \text{Model Posterior} \propto \text{Evidence} \times \text{Model Prior} \notag
 $$
 
-式 11 中的数据依赖项是该模型的证据。尽管对其做出 `后验归一化常数` 的解释很好理解，但和前面所提到的一样，对于大多数贝叶斯神经网络来说，求证据的分布非常困难。
 
-论文假设证据呈高斯分布，并提出了证据的拉普拉斯近似：
+##### （4）早期边缘似然的拉普拉斯近似
+
+式 11 中的数据依赖项是该模型的边缘似然。尽管对其做出 `后验归一化常数` 的解释很好理解，但和前面所提到的一样，对于大多数贝叶斯神经网络来说，求边缘似然的分布非常困难。
+
+论文`假设边缘似然呈高斯分布`，并提出了边缘似然的拉普拉斯近似：
+
+'''{note}
+高斯分布假设本质上是对边缘似然提出了近似假设，进而将边缘似然计算的问题转换为近似函数的参数求解问题。
+
+'''
 
 $$
 \begin{align*} 
 P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &=\int P\left(\mathcal{D} \mid \boldsymbol{\omega}, \mathcal{H}_{i}\right) P\left(\boldsymbol{\omega} \mid \mathcal{H}_{i}\right) d \boldsymbol{\omega} \tag{11} \\ 
-& \approx P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right) \Delta \omega\right]`  \tag{12} \\ 
-&=P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right)(2 \pi)^{\frac{k}{2}} \mathrm{det}^{-\frac{1}{2}} \mathbf{A}\right]` \tag{13}\\ 
+& \approx P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right) \Delta \omega\right]'  \tag{12} \\ 
+&=P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right)(2 \pi)^{\frac{k}{2}} \mathrm{det}^{-\frac{1}{2}} \mathbf{A}\right]' \tag{13}\\ 
 &=\text { Best Likelihood Fit } \times \text { Occam Factor } 
 \end{align*}
 $$
 
-这可以解释为对模型证据的一种黎曼近似，是代表证据峰值的 `最佳似然拟合（Best Likelihood Fit）`， `奥卡姆因子（Occam Factor）` 是高斯分布峰值附近曲线的特征宽度，可以解释为给定模型 $\mathcal{H}_i$ 的后验宽度 $∆ω$ 与先验宽度 $∆ω_0$ 之比，计算公式为：
+这可以解释为对模型边缘似然的一种黎曼近似，是代表边缘似然峰值的 `最佳似然拟合（Best Likelihood Fit）`， `奥卡姆因子（Occam Factor） 是高斯分布峰值附近曲线的特征宽度之比`，可以解释为给定模型 $\mathcal{H}_i$ 的后验宽度 $∆ω$ 与先验宽度 $∆ω_0$ 之比，计算公式为：
 
 $$
 \text{Occam Factor}  =\frac{\Delta \omega}{\Delta \omega_{0}} \tag{15}
 $$
 
-这意味着奥卡姆因子是参数空间中从先验到后验的变化率。图 4 展示了此概念，一个能够表示大范围数据的复杂模型（ $\mathcal{H}_2$ ）将拥有更宽的证据，因此具有更大的奥卡姆因子。而简单模型（$\mathcal{H}_1$ ）捕获复杂生成过程的能力较弱，但较小范围的数据能够更确定地建模，从而产生较低的奥卡姆因子。这导致了模型复杂性的天然正规化：不必要的复杂模型通常会导致较宽的后验分布，从而导致较大奥卡姆因子以及给定模型较低的证据。类似的，一个弱信息（分散平坦的）先验将导致奥卡姆因子降低，进一步直观地解释了贝叶斯设置中的正则化（即所谓 “贝叶斯方法内置奥卡姆剃刀”）。
+这意味着奥卡姆因子是参数空间中从先验到后验的变化率。图 4 展示了此概念，一个能够表示大范围数据的复杂模型（ $\mathcal{H}_2$ ）将拥有更宽的边缘似然，因此具有更大的奥卡姆因子。而简单模型（$\mathcal{H}_1$ ）捕获复杂生成过程的能力较弱，但较小范围的数据能够更确定地建模，从而产生较低的奥卡姆因子。这导致了模型复杂性的天然正规化：不必要的复杂模型通常会导致较宽的后验分布，从而导致较大奥卡姆因子以及给定模型较低的边缘似然。类似的，一个弱信息（分散平坦的）先验将导致奥卡姆因子降低，进一步直观地解释了贝叶斯设置中的正则化（即所谓 “贝叶斯方法内置奥卡姆剃刀”）。
 
 ![](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021052615491522.webp)
 
-图 4：证据在评估不同模型中发挥的作用。简单模型 $\mathcal{H}_1$ 能够以更大的强度预测较小范围的数据，而较复杂的模型 $\mathcal{H}_2$ 尽管概率较低，但能够表示较大范围的数据，改编自 `[46，47]`。
+图 4：边缘似然在评估不同模型中发挥的作用。简单模型 $\mathcal{H}_1$ 能够以更大的强度预测较小范围的数据，而较复杂的模型 $\mathcal{H}_2$ 尽管概率较低，但能够表示较大范围的数据，改编自 `[46，47]`。
 
 如前所述，使用该证据框架需要计算边缘似然，这是贝叶斯建模中最关键的挑战。考虑到近似计算边缘似然所需的大量成本，利用该证据框架比较许多不同的模型似乎不可行。
 
@@ -200,21 +214,21 @@ $$
 \end{align*}
 $$
 
-其中，$ \mathcal{F}\left[q_{\theta}\right]=-\mathrm{KL}\left(q_{\theta}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega})\right)+\mathbb{E}_{q}[\log p(\mathcal{D} \mid \boldsymbol{\omega})]` $。该组合是为了将易处理的项从难处理的对数边缘似然中分离出来。
+其中，$\mathcal{F}\left[q_{\theta}\right]=-\mathrm{KL}\left(q_{\theta}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega})\right)+\mathbb{E}_{q}[\log p(\mathcal{D} \mid \boldsymbol{\omega})]'$。该组合项可将易处理的项与难处理的对数边缘似然分离开来。
 
-现在可以使用反向传播来优化该函数，由于对数边缘似然与参数 $θ$ 无关，因此目标函数关于 $θ$ 的导数为零，导数中只剩下包含变分参数的项 $\mathcal{F}[q_θ]$ 。
+现在可以该函数作为目标函数，并利用反向传播和梯度下降来优化。由于对数边缘似然与参数 $θ$ 无关，因此目标函数关于 $θ$ 的导数为零，导数中只剩下包含变分参数的项 $\mathcal{F}[q_θ]$ 。
 
-式 19 中包含 $\mathcal{F}[q_θ]$ 的负值项，是为强调“它是一个与目标分布不同但等价的推导”，并与文献保持一致。
+式 19 中包含 $\mathcal{F}[q_θ]$ 的负值项，是为强调 `它是一个与目标分布不同但等价的派生分布` ，并与文献保持一致。
 
-该结果不是通过最小化真实分布和近似分布之间的 KL 散度，而是通过近似难以处理的对数边缘似然来获得的。通过应用 Jensen 不等式，可以发现 $\mathcal{F}[q_θ]$ 形成了对数边缘似然的下界 `[49,52]` 。通过公式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零。对数边缘似然 $\log p(\mathcal{D})$ 等于近似后验与真实后验之间的 KL 散度与  $\mathcal{F}[q_θ]$  之和。通过最小化近似后验和真实后验之间的 KL 散度， $\mathcal{F}[q_θ]$  将越来越接近对数边缘似然。因此， $\mathcal{F}[q_θ]$  通常被称为证据下界（ELBO），图 5 可视化地说明了该点。
+该结果不是通过最小化真实分布和近似分布之间的 KL 散度，而是通过近似难以处理的对数边缘似然来获得的。通过应用 Jensen 不等式，可以发现 $\mathcal{F}[q_θ]$ 形成了对数边缘似然的下界 `[49,52]` 。通过公式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零。对数边缘似然 $\log p(\mathcal{D})$ 等于近似后验与真实后验之间的 KL 散度与  $\mathcal{F}[q_θ]$  之和。通过最小化近似后验和真实后验之间的 KL 散度， $\mathcal{F}[q_θ]$  将越来越接近对数边缘似然。因此， $\mathcal{F}[q_θ]$  通常被称为边缘似然下界（ELBO），图 5 可视化地说明了该点。
 
 ![](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021052616535332.webp)
 
-图 5：近似后验和真实后验之间的 KL 散度最小化导致的证据下界最大化。当近似后验和真实后验之间的 KL 散度被最小化时，证据下界 $\mathcal{F}[q_θ]$ 收紧到对数证据。因此，最大化证据下界 `ELBO` 等同于最小化 KL 散度。改编自 `[53]` 。
+图 5：近似后验和真实后验之间的 KL 散度最小化导致的边缘似然下界最大化。当近似后验和真实后验之间的 KL 散度被最小化时，边缘似然下界 $\mathcal{F}[q_θ]$ 收紧到对数边缘似然。因此，最小化 KL 散度等效于最大化边缘似然下界 `ELBO` 。改编自 `[53]` 。
 
 ```{note}
 
-最小化 KL 散度等效于最大化证据下界 `ELBO` 。
+最小化 KL 散度等效于最大化边缘似然下界 `ELBO` 。
 
 ```
 
@@ -232,7 +246,7 @@ $$
 
 ##### （3）变分推断的改进
 
-这项工作存在几个问题，其中最突出的问题是假设变分分布被因子分解为单个网络权重。众所周知，神经网络中的参数之间存在强相关性。因子分解方法实际上是通过牺牲参数之间的相关性来简化计算。`Mackay` 在对贝叶斯神经网络的早期调研中强调了该问题 `[32]`，并提出通过对隐层的输入做预处理，可以获得更全面的近似后验分布。
+这项工作存在几个问题，其中最突出的问题是假设变分分布被因子分解为单个网络权重的高斯分布。众所周知，神经网络中的参数之间存在强相关性。因子分解方法实际上是通过牺牲参数之间的相关性来简化计算。`Mackay` 在对贝叶斯神经网络的早期调研中强调了该问题 `[32]`，并提出通过对隐层的输入做预处理，可以获得更全面的近似后验分布。
 
 `Barber` 和 `Bishop` `[53]` 再次强调了该问题，并扩展了 `[54]` 中的工作，允许通过使用 `满秩高斯` 的后验变分分布来捕获参数间的完全相关性。对于使用 Sigmoid 激活函数的单隐层回归网络，提供了评估 `ELBO` 的解析表达式。该方法通过使用适当缩放的误差函数替换 Sigmoid 来实现。
 
@@ -248,13 +262,14 @@ $$
 
 ##### （4）变分推断的局限性
 
-这些方法也存在局限性。`Hinton` 、 `Van Camp` 、 `Barber` 和 `Bishop` 的工作都集中在发展一种封闭形式的网络表示，对网络施加了许多限制。如前面所讨论的，`[54]` 假设后验因子分解为单个权重，它不能捕获参数的相关性。 `[53]` 捕获了协方差结构，但作者将其分析限制在使用误差函数近似 Sigmoid 激活函数上，而该函数由于梯度的幅度较低而在现代神经网络中很少使用。另外，两种方法都存在一个非常关键的局限性，即模型限制为单隐层神经网络。
+这些方法也存在局限性。`Hinton` 、 `Van Camp` 、 `Barber` 和 `Bishop` 的工作都集中在发展一种封闭形式的网络表示，对网络施加了许多限制。如前面所讨论的，`[54]` 假设后验因子分解为单个权重，它无法捕获参数之间的相关性。 `[53]` 捕获了协方差结构，但作者将其分析限制在使用误差函数近似 Sigmoid 激活函数上，而该函数由于梯度的幅度较低而在现代神经网络中很少使用。另外，两种方法都存在一个非常关键的局限性，即模型限制为单隐层神经网络。
 
 如前所述，神经网络可通过添加额外的隐藏单元来任意地逼近任何函数。但现代神经网络实验表明，通过增加网络中隐层的数量，可以用更少的隐藏单元来表示相同的复杂函数，并由此产生了“深度学习”，其中深度指的就是隐藏层的数量。当试图近似各层之间的完全协方差结构时，减少权重变量的数量变得尤其重要。例如，可以捕获单层内的隐藏单元之间的相关性，同时假设不同层之间参数是独立的。此类假设可以显著减少相关参数的数量。现代出现了很多拥有很深层数、数以亿计权重的神经网络（目前大多只能提供点估计），因此开发超出单层的实用概率解释需求必不可少。
 
 #### 2.3.3 BNN 的混合蒙特卡罗方法
 
 值得反思一下实际感兴趣的数量。到目前为止，重点一直放在寻找后验的良好近似上，但后验的准确表示通常不是最终设计目标，实际感兴趣的主要量是预测矩和区间。我们希望在信心充分的情况下做出良好的预测。之所以强调后验的良好近似，是因为预测矩和区间都必须根据后验 $π(ω|D)$  的来计算期望值。该期望值在式 9 中，为方便在此重复给出：
+
 $$
 \mathbb{E}_{\pi}[f]=\int f(\boldsymbol{\omega}) \pi(\boldsymbol{\omega} \mid \mathcal{D}) d \boldsymbol{\omega} 
 $$
@@ -269,13 +284,13 @@ $$
 \mathbb{E}_{\pi}[f]=\int f(\boldsymbol{\omega}) \pi(\boldsymbol{\omega} \mid \mathcal{D}) d \boldsymbol{\omega} \approx \frac{1}{N} \sum_{i=1}^{N} f\left(\boldsymbol{\omega}_{i}\right) \tag{22}
 $$
 
-其中 $ω_i$ 表示来自后验分布的一个独立样本。MCMC 允许从后验分布抽取`收敛于概率密度和体积的乘积最大时的样本`[55]`。
+其中 $ω_i$ 表示来自后验分布的一个独立样本。MCMC 允许从后验分布抽取 `收敛于概率密度和体积的乘积最大时的样本` `[55]`。
 
 在 MCMC 上下文中，不需要变分推断方法所做的假设（如后验的因子分解等）。当样本数量趋近于无穷大时，MCMC 会收敛到真实后验。由于避免了假设限制，只要有足够时间和计算资源，我们就可以得到一个更接近真实预测量的解。这对于贝叶斯神经网络来说是一个重要挑战，因为后验分布通常相当复杂。
 
 传统 MCMC 方法表现出随机游走的特点，因为序列中的新推荐是随机生成的。由于 BNN 后验结构的复杂性和高维性，这种随机游走特性很难在合理的时间内进行推断。为避免随机游走，可以采用在迭代过程中加入了梯度信息的 `混合/汉密尔顿蒙特卡罗（HMC）方法`。虽然 HMC 最初被提出用于统计物理 `[58]`，但 `Neal` 强调了 HMC 解决贝叶斯推断的潜力，并专门研究了其在 BNN 和更广泛统计社区中的应用 `[38]` 。
 
-鉴于 HM C 最初是为物理动力学提出的，因此通过物理类比来建立应用统计学直觉比较合适。将感兴趣的参数 $ω$ 视为位置变量。然后引入一个辅助变量来模拟当前位置的动量 $\mathbf{v}$ 。该辅助变量没有统计学意义，只是为帮助系统动力学发展而引入的。通过位置和动量变量，我们可以表示系统的势能 $U(ω)$ 和动能 $K(\mathbf{v})$。系统的总能量表示为：
+鉴于 HMC 最初是为物理动力学提出的，因此通过物理类比来建立应用统计学直觉比较合适。将感兴趣的参数 $ω$ 视为位置变量。然后引入一个辅助变量来模拟当前位置的动量 $\mathbf{v}$ 。该辅助变量没有统计学意义，只是为帮助系统动力学发展而引入的。通过位置和动量变量，我们可以表示系统的势能 $U(ω)$ 和动能 $K(\mathbf{v})$。系统的总能量表示为：
 
 $$
 H(\boldsymbol{\omega}, \mathbf{v})=U(\boldsymbol{\omega})+K(\mathbf{v}) \tag{23}
@@ -307,13 +322,13 @@ $$
 U(\boldsymbol{\omega})=-\log (p(\boldsymbol{\omega}) p(\mathcal{D} \mid \boldsymbol{\omega}))\tag{27}
 $$
 
-在 HMC 中，动能可以从一系列合适的函数中自由选择。但通常采用选取以原点为中心的对角高斯分布作为 $\mathbf{v}$ 的边缘分：
+在 HMC 中，动能可以从一系列合适的函数中自由选择。但通常采用选取以原点为中心的对角高斯分布作为 $\mathbf{v}$ 的边缘分布：
 
 $$
 K(\mathbf{v})=\mathbf{v}^{T} M^{-1} \mathbf{v}\tag{28}
 $$
 
-这里 $M$ 是一个对角矩阵，在该物理解释中，被认为是变量的“质量”。但需要注意，虽然该动能函数最为常用，但不一定是最合适的。`[55]` 综述了其他高斯动能的选择和设计，并着重做出了几何解释。同时必须强调，选择合适的动能函数仍然是一个开放的研究课题，尤其是非高斯函数的情况。
+这里 $M$ 是一个对角矩阵，在该物理解释中，被认为是变量的 “质量” 。但需要注意，虽然该动能函数最为常用，但不一定是最合适的。`[55]` 综述了其他高斯动能的选择和设计，并着重做出了几何解释。同时必须强调，选择合适的动能函数仍然是一个开放的研究课题，尤其是非高斯函数的情况。
 
 由于汉密尔顿动力学使总能量保持不变，当以无限精度实现时，所提出的动力学是可逆的。可逆性是满足详细平衡条件的充分性质，这是确保目标分布（试图从其采样的后验分布）保持不变所必需的。在实际应用中，变量离散化会产生数值误差。最常用的离散化方法是`跳步（LeapFrog）法` 。跳步法指定步长 $\epsilon$ 以及在可能接受更新前要使用的步骤 $L$ 。跳步法首先执行动量变量 $\mathbf{v}$ 的一半更新，接着是位置 $w$ 的完全更新，然后是动量的剩余一半更新 `[59]`，
 
@@ -351,19 +366,20 @@ $$
 
 其中 $D_i⊂D$ ，并且每个子集 $D_i$ 的大小均为 $M$ 。这为训练期间利用大数据集提供了有效方法。在传递单个子集 $D_i$ 之后，应用反向传播来更新模型参数。这种似然的子采样会在推断过程中引入噪声，因此得名 SGD 。该噪声在所有单独子集的评估过程中会被平均掉 `[61]` 。SGD 是利用变分推断方法训练 NN 和 BNN 的最常用方法。
 
-Graves 在 2011 年发表了一篇关于 BNN 研究复兴的关键论文 `[62]`，`《Practical variational inference for neural networks》`。这项工作提出了一种使用了因子分解的高斯近似后验的 MFVB 处理方法。其关键贡献是导数的计算。变分推断目标（即证据下界 ELBO 最大化）可被视为两个期望的总和，
+Graves 在 2011 年发表了一篇关于 BNN 研究复兴的关键论文 `[62]`，`《Practical variational inference for neural networks》`。这项工作提出了一种使用了因子分解的高斯近似后验的 MFVB 处理方法。其关键贡献是导数的计算。变分推断目标（即边缘似然下界 ELBO 最大化）可被视为两个期望的总和，
 
 $$
-\mathcal{F}\left[q_{\theta}\right]=\mathbb{E}_{q}[\log (p(\mathcal{D} \mid \boldsymbol{\omega}))]-\mathbb{E}_{q}\left[\log q_{\boldsymbol{\theta}}(\boldsymbol{\omega})-\log p(\boldsymbol{\omega})\right]` \tag{33}
+\mathcal{F}\left[q_{\theta}\right]=\mathbb{E}_{q}[\log (p(\mathcal{D} \mid \boldsymbol{\omega}))]-\mathbb{E}_{q}\left[\log q_{\boldsymbol{\theta}}(\boldsymbol{\omega})-\log p(\boldsymbol{\omega})\right]' \tag{33}
 $$
 
 这两个期望是优化模型参数所需要的，同时意味着需要计算的梯度。该论文显示了如何使用 `[63]` 提出的高斯梯度特性对参数进行更新：
+
 $$
-\nabla_{\boldsymbol{\mu}} \mathbb{E}_{p(\boldsymbol{\omega})}[f(\boldsymbol{\omega})]=\mathbb{E}_{p(\boldsymbol{\omega})}\left[\nabla_{\boldsymbol{\omega}} f(\boldsymbol{\omega})\right]` \tag{34}
+\nabla_{\boldsymbol{\mu}} \mathbb{E}_{p(\boldsymbol{\omega})}[f(\boldsymbol{\omega})]=\mathbb{E}_{p(\boldsymbol{\omega})}\left[\nabla_{\boldsymbol{\omega}} f(\boldsymbol{\omega})\right' \tag{34}
 $$
 
 $$
-\nabla_{\Sigma} \mathbb{E}_{p(\boldsymbol{\omega})}[f(\boldsymbol{\omega})]=\frac{1}{2} \mathbb{E}_{p(\boldsymbol{\omega})}\left[\nabla_{\boldsymbol{\omega}} \nabla_{\boldsymbol{\omega}} f(\boldsymbol{\omega})\right]` \tag{35}
+\nabla_{\Sigma} \mathbb{E}_{p(\boldsymbol{\omega})}[f(\boldsymbol{\omega})]=\frac{1}{2} \mathbb{E}_{p(\boldsymbol{\omega})}\left[\nabla_{\boldsymbol{\omega}} \nabla_{\boldsymbol{\omega}} f(\boldsymbol{\omega})\right]' \tag{35}
 $$
 
 MC 积分可以应用于公式 34 和 35 ，以近似均值和方差参数的梯度。该框架允许对 ELBO 进行优化，以推广到任何对数损失参数模型。
@@ -379,7 +395,11 @@ $$
 利用这一性质，可以形成对期望导数的蒙特卡罗估计，这在变分推断中经常使用。
 
 $$
-\begin{aligned} \nabla_{\theta} \mathbb{E}_{q}[f(\omega)] &=\int f(\omega) \nabla_{\theta} q_{\theta}(\omega) \partial \omega \\ &=\int f(\omega) q_{\theta}(\omega) \nabla_{\theta} \log \left(q_{\theta}(\omega)\right) \partial \omega \\ & \approx \frac{1}{L} \sum_{i=1}^{L} f\left(\omega_{i}\right) \nabla_{\theta} \log \left(q_{\theta}\left(\omega_{i}\right)\right) \end{aligned} \tag{37}
+\begin{align*} \tag{37}
+\nabla_{\theta} \mathbb{E}_{q}[f(\omega)] &=\int f(\omega) \nabla_{\theta} q_{\theta}(\omega) \partial \omega \\
+ &=\int f(\omega) q_{\theta}(\omega) \nabla_{\theta} \log \left(q_{\theta}(\omega)\right) \partial \omega \\ 
+ & \approx \frac{1}{L} \sum_{i=1}^{L} f\left(\omega_{i}\right) \nabla_{\theta} \log \left(q_{\theta}\left(\omega_{i}\right)\right) 
+ \end{align*} 
 $$
 
 打分函数梯度估计的一个常见问题是它们表现出相当大的方差 `[65]`。减少蒙特卡罗估计方差的最常见方法之一是引入控制变量 `[66]`。
@@ -393,6 +413,7 @@ $$
 $$
 
 其中 $\epsilon∼N(0，I)$ 和 $\odot$ 表示 Hadamard 积。使用这种方法可以对期望的蒙特卡罗估计进行有效抽样。正如文 `[68]` 所示，当 $ω=g(θ，\epsilon)$ 时，有 $q(ω|θ)dω=p(\epsilon)d\epsilon$， 因此，可以证明：
+
 $$
 \begin{align*}
 \int q_{\boldsymbol{\theta}}(\boldsymbol{\omega}) f(\boldsymbol{\omega}) d \boldsymbol{\omega} &=\int p(\boldsymbol{\epsilon}) f(\boldsymbol{\omega}) d \boldsymbol{\epsilon} \\ &=\int p(\boldsymbol{\epsilon}) f(g(\boldsymbol{\theta}, \boldsymbol{\epsilon})) d \boldsymbol{\epsilon} \\ \approx \frac{1}{M} \sum_{i=1}^{M} f\left(g\left(\boldsymbol{\theta}, \boldsymbol{\epsilon}_{i}\right)\right) &=\frac{1}{M} \sum_{i=1}^{M} f\left(\boldsymbol{\mu}+\boldsymbol{\sigma} \odot \boldsymbol{\epsilon}_{i}\right) \tag{39}
@@ -436,25 +457,30 @@ q\left(\phi_{j} \mid \mathbf{x}\right) &=\mathcal{N}\left(\gamma_{j}, \delta_{j}
 \delta_{j}^{2} &=\sum_{i=1}^{N} x_{i}^{2} \sigma_{i, j}^{2}\tag{45}
 \end{align*}
 $$
+
 相对于权重 $w$ 本身的分布，从 $\phi$ 的分布中采样更有利，因为这使得梯度估计器的方差与训练期间使用的小批次数量呈线性关系。
 
 上述工作对于解决机器学习研究中缺乏严谨性的问题很重要。例如，最初的 `Dropout` 论文 `[70]` 缺乏任何重要的理论基础。相反，该方法引用了有性繁殖理论`[73]`作为方法动机，并在很大程度上依赖于所给出的实证结果。这些结果在许多高影响力的研究项目中得到了进一步的证明，这些项目仅仅将该技术作为一种正规化方法来使用。`[39]` 和 `[71]` 中的工作表明，该方法有理论上的合理性。在试图减少网络过拟合影响时，频率主义方法论依赖于弱合理性的成功经验，而贝叶斯分析提供了丰富的理论体系，导致对神经网络强大近似能力的有意义理解。
 
 虽然解决了将变分推断应用于具有更多隐层的复杂 BNN 问题，但实际实现已经显示出性能不足，这归因于梯度计算的 MC 近似的巨大方差。`Hernandez` 等人 `[64]` 承认了这一局限性，并提出了一种新的 BNN 实用推断方法，名为概率反向传播 (PBP)。PBP 偏离了典型的变分推断方法，取而代之的是采用 `假设密度滤波（Assumed Density  Filtering,ADF)`  方法 `[74]`。在该格式中，通过应用贝叶斯规则以迭代方式更新后验概率：
+
 $$
 p\left(\boldsymbol{\omega}_{t+1} \mid \mathcal{D}_{t+1}\right)=\frac{p\left(\boldsymbol{\omega}_{t} \mid \mathcal{D}_{t}\right) p\left(\mathcal{D}_{t+1} \mid \boldsymbol{\omega}_{t}\right)}{p\left(\mathcal{D}_{t+1}\right)} \tag{46}
 $$
 
 与以预测误差为目标函数的传统网络训练不同，PBP 使用前向传播来计算目标的对数边缘概率，并更新网络参数的后验分布。在 `[75]` 中定义的矩匹配方法使用了反向传播的变种来更新后验，同时在近似分布和变分分布之间保持等效均值和方差：
+
 $$
 \begin{align*}
 \mu_{t+1} &=\mu_{t}+\sigma_{t} \frac{\partial \log p\left(\mathcal{D}_{t+1}\right)}{\partial \mu} \tag{47}\\ 
 \sigma_{t+1} &=\sigma_{t}+\sigma_{t}^{2}\left[\left(\frac{\partial p\left(\mathcal{D}_{t+1}\right)}{\partial \mu_{t}}\right)^{2}-2 \frac{\partial p\left(\mathcal{D}_{t+1}\right)}{\partial \sigma}\right]` \tag{48}
 \end{align*}
 $$
+
 在多个小数据集上的实验结果表明，与简单回归问题的 HMC 方法相比，该方法在预测精度和不确定性估计方面具有合理的性能 `[64]` 。这种方法的关键问题是在线训练方法带来的计算瓶颈。该方法可能适用于某些应用，或者适用于在现有 BNN 可用时用额外的附加数据更新现有 BNN，但是对于大数据集推断，该方法在计算性能上令人望而却步。
 
 Blundell 等人提出了一种很有前途的 BNN 近似推断方法，名为 “`Bayes by Backprop`” `[76]`。该方法利用重参数化技巧来显示如何找到期望导数的无偏估计。对于可重参数化为确定性且可微函数 $ω=g(\epsilon，θ）$ 的随机变量 $ω \sim q_\theta(\omega)$，任意函数 $f(ω,θ)$ 的期望的导数可表示为：
+
 $$
 \begin{align*}
 \frac{\partial}{\partial \boldsymbol{\theta}} \mathbb{E}_{q}[f(\boldsymbol{\omega}, \boldsymbol{\theta})]` &=\frac{\partial}{\partial \boldsymbol{\theta}} \int q_{\boldsymbol{\theta}}(\boldsymbol{\omega}) f(\boldsymbol{\omega}, \boldsymbol{\theta}) d \boldsymbol{\omega} \tag{49}\\ 
@@ -463,25 +489,34 @@ $$
 \end{align*}
 $$
 
-在 `·Bayes by Backprop` 算法中，函数 $f(ω,θ)$ 被设为：
+在 `Bayes by Backprop` 算法中，函数 $f(ω,θ)$ 被设为：
+
 $$
 f(\boldsymbol{\omega}, \boldsymbol{\theta})=\log \frac{q_{\boldsymbol{\theta}}(\boldsymbol{\omega})}{p(\boldsymbol{\omega})}-\log p(\mathbf{X} \mid \boldsymbol{\omega}) \tag{52}t
 $$
+
 这个 $f(ω，θ)$ 可被视为式 17 中执行的期望的自变量，它是下界的一部分。组合公式 51 和 52 ：
+
 $$
 \mathcal{L}(\boldsymbol{\omega}, \boldsymbol{\theta})=\mathbb{E}_{q}[f(\boldsymbol{\omega}, \boldsymbol{\theta})]=\mathrm{e}_{q}\left[\log \frac{q_{\boldsymbol{\theta}}(\boldsymbol{\omega})}{p(\boldsymbol{\omega})}-\log p(\mathcal{D} \mid \boldsymbol{\omega})\right]=-\mathcal{F}\left[q_{\boldsymbol{\theta}}\right] \tag{53}
 $$
+
 是 ELBO 的相反数，意味着 `Bayes By Backprop` 旨在最小化近似后验和真实后验之间的 KL 散度，可以使用蒙特卡罗积分来近似公式 53 中的成本：
+
 $$
 \mathcal{F}\left[q_{\boldsymbol{\theta}}\right] \approx \sum_{i=1}^{N} \log \frac{q_{\boldsymbol{\theta}}\left(\boldsymbol{\omega}_{i}\right)}{p\left(\boldsymbol{\omega}_{i}\right)}-\log p\left(\mathbf{X} \mid \boldsymbol{\omega}_{i}\right)\tag{54}
 $$
+
 其中 $ω_i$ 是来自 $q_θ(ω)$ 的 第 $i$ 个样本。通过公式 54 中的近似，可以使用公式 51 所示结果来找到无偏梯度。
 
-对于 `Bayes by Backprop` 算法，假设一个完全因子分解的高斯后验，使得 $θ={\mu，\rho}$ ，其中 $\sigma=\text{softplus}(\rho) $  用于确保标准偏差参数为正。由此，网络中的权重分布 $ω∼\mathcal{N}(\mu，softplus(\rho)^2)$ 被重参数化为：
+对于 `Bayes by Backprop` 算法，假设一个完全因子分解的高斯后验，使得 $θ={\mu，\rho}$ ，其中 $\sigma=\text{softplus}(\rho)$  用于确保标准偏差参数为正。由此，网络中的权重分布 $ω∼\mathcal{N}(\mu，softplus(\rho)^2)$ 被重参数化为：
+
 $$
 \boldsymbol{\omega}=g(\boldsymbol{\theta}, \boldsymbol{\epsilon})=\mu+\operatorname{softplus}(\boldsymbol{\rho}) \odot \boldsymbol{\epsilon} \tag{55}
 $$
+
 在该贝叶斯神经网络中，可训练参数为 $\mu$ 和 $\rho$ 。由于使用了全因子分解分布，根据公式 20，近似后验的对数可表示为：
+
 $$
 \log q_{\boldsymbol{\theta}}(\boldsymbol{\omega})=\sum_{l, j, k} \log \left(\mathcal{N}\left(w_{l j k} ; \mu_{l j k}, \sigma_{l j k}^{2}\right)\right) \tag{56}
 $$
@@ -490,9 +525,10 @@ $$
 
 ![](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210527134042_a1.webp)
 
+
 ### 2.5 BNN 的高斯过程特性
 
-Neal[38]` 还给出了推导和实验结果，以说明对于只有一个隐层的网络，当隐藏单元的数量接近无穷大时，会出现高于网络输出的高斯过程，并且将高斯先验置于参数 22 之上。图 6 说明了该结果。
+`Neal[38]` 还给出了推导和实验结果，以说明对于只有一个隐层的网络，当隐藏单元的数量接近无穷大时，会出现高于网络输出的高斯过程，并且将高斯先验置于参数 22 之上。图 6 说明了该结果。
 
 ![](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210527170036_e5.webp)
 
@@ -518,7 +554,7 @@ Neal[38]` 还给出了推导和实验结果，以说明对于只有一个隐层�
 
 如下图所示，分析显示了高斯过程在预测偏差和方差方面的对比性能。用 `Backprop` 和一个因式高斯近似后验概率对 Bayes 模型进行训练，在训练数据分布的情况下，虽然训练数据区域外的方差与高斯过程相比显著低估，但预测结果是合理的。具有标度伯努利近似后验的 MC-Dropout 通常表现出更大的方差，尽管在训练数据的分布中保持不必要的高方差。
 
-![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9Xc 神经网络 rRXlJTmZIMUtYd1g0R0pMYlpPN0NTcHdneTJuUmZpY3ZkSTd2T2JUZnJjMzR5aWF2Njg2cnoxRENab29pYUpWSlZpYW1EYU9yaE1EeUtPZnQxQ2FoQmcvNjQw?x-oss-process=image/format,png)
+![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9XcnnrRXlJTmZIMUtYd1g0R0pMYlpPN0NTcHdneTJuUmZpY3ZkSTd2T2JUZnJjMzR5aWF2Njg2cnoxRENab29pYUpWSlZpYW1EYU9yaE1EeUtPZnQxQ2FoQmcvNjQw?x-oss-process=image/format,png)
 
 ### 2.6 当前 BNN 的局限性
 
@@ -574,7 +610,7 @@ $$
 
 其中星号上标表示来自测试集中的新输入和输出样本 x∗，y∗。
 
-用于评估这些模型的数据集是来自高影响力论文的简单玩具数据集，其中提供了类似的实验作为经验证据 `[76,119]`。然后将两种 BNN 方法与 GP 模型进行比较。图 7 显示了这些结果。
+用于评估这些模型的数据集是来自高影响力论文的简单玩具数据集，其中提供了类似的实验作为经验边缘似然 `[76,119]`。然后将两种 BNN 方法与 GP 模型进行比较。图 7 显示了这些结果。
 
 对图 7 中所示回归结果的分析显示，在预测中的偏差和方差方面表现不同。用 Backprop 的贝叶斯和分解后的高斯近似后验数据训练的模型显示出合理的训练数据分布预测结果，尽管与 GP 相比，训练数据区域外的方差被显著低估。具有缩放伯努利近似后验的 MC Dropout 对于非分布数据通常表现出更大的方差，尽管在训练数据的分布内保持不必要的高方差。对这些模型的超参数进行了很少的调整。通过更好地选择超参数，可以获得更好的结果，特别是对于 MC Dropout。或者，可以使用更完整的贝叶斯方法，其中将超参数视为潜在变量，并对这些变量执行边际化。
 
@@ -587,9 +623,11 @@ $$
 ### 3.2 卷积 BNN
 
 虽然 MLP 是神经网络的基础，但最突出的神经网络架构是卷积神经网络。这些网络在具有挑战性的图像分类任务方面表现出色，其预测性能远远超过先前基于核或特征工程的方法。C 神经网络 不同于典型的 MLP，它的应用是一个卷积型的算子，单个卷积层的输出可以表示为：
+
 $$
 \boldsymbol{\Phi}=u\left(\mathbf{X}^{T} * \mathbf{W}\right) \tag{62}
 $$
+
 其中 u(·) 是非线性激活，∗表示类卷积运算。这里，输入 X 和权重矩阵 W 不再局限于向量或矩阵，而是可以是多维数组。可以表明，CNN 可以被写成具有等效的 MLP 模型，从而允许优化的线性代数包用于利用反向传播进行训练 `[122]`。
 
 在现有研究方法的基础上，可以发展一种新型的贝叶斯卷积神经网络 (BCNN)。这是通过将贝叶斯的 Backprop 方法 `[76]` 扩展到适合于图像分类的模型的情况来实现的。卷积层中的每个权重被假定为独立的，从而允许对每个单独的参数进行因式分解。
@@ -768,8 +806,7 @@ statisticians,” Journal of the American Statistical Association, vol. 112, no.
 ence,” The Journal of Machine Learning Research, vol. 14, no. 1, pp. 1303–1347,
 2013.
 53. D. Barber and C. M. Bishop, “Ensemble learning in bayesian neural networks,” NATO
-ASI SERIES F COMPUTER AND SYSTEMS SCIENCES, vol. 168, pp. 215–238,
-1998.
+ASI SERIES F COMPUTER AND SYSTEMS SCIENCES, vol. 168, pp. 215–238,1998.
 54. G. E. Hinton and D. Van Camp, “Keeping the neural networks simple by minimizing
 the description length of the weights,” in Proceedings of the sixth annual conference
 on Computational learning theory. ACM, 1993, pp. 5–13.
