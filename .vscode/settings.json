@@ -1,4 +1,4 @@
 {
     "jupyter.jupyterServerType": "local",
-    "python.pythonPath": "d:\\Usr\\share\\Anaconda3\\envs\\pysal\\python.exe"
+    "python.pythonPath": "C:\\usr\\share\\Anaconda3\\envs\\pymc3-theano\\python.exe"
 }

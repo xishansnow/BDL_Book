@@ -7,10 +7,10 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+BDL_Book/_build/
 _build/
 .vscode/
 .Python
-_build/
 build/
 develop-eggs/
 dist/
