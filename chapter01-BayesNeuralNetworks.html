@@ -558,29 +558,35 @@ P\left(\mathcal{H}_{i} \mid \mathcal{D}\right) \propto P\left(\mathcal{D} \mid \
 <div class="section" id="id15">
 <h5>（4）早期边缘似然的拉普拉斯近似<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
 <p>式 11 中的数据依赖项是该模型的边缘似然。尽管对其做出 <code class="docutils literal notranslate"><span class="pre">后验归一化常数</span></code> 的解释很好理解，但和前面所提到的一样，对于大多数贝叶斯神经网络来说，求边缘似然的分布非常困难。</p>
-<p>论文<code class="docutils literal notranslate"><span class="pre">假设边缘似然呈高斯分布</span></code>，并提出了边缘似然的拉普拉斯近似：</p>
-<p>‘’’{note}
-高斯分布假设本质上是对边缘似然提出了近似假设，进而将边缘似然计算的问题转换为近似函数的参数求解问题。</p>
-<p>‘’’</p>
+<p>论文假设<code class="docutils literal notranslate"><span class="pre">边缘似然呈高斯分布</span></code>，并提出了边缘似然的拉普拉斯近似：</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>高斯分布是对边缘似然提出的近似假设，进而将边缘似然计算的问题转换为近似函数的参数求解问题。</p>
+</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*} 
-P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &amp;=\int P\left(\mathcal{D} \mid \boldsymbol{\omega}, \mathcal{H}_{i}\right) P\left(\boldsymbol{\omega} \mid \mathcal{H}_{i}\right) d \boldsymbol{\omega} \tag{11} \\ 
-&amp; \approx P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right) \Delta \omega\right]'  \tag{12} \\ 
-&amp;=P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right)(2 \pi)^{\frac{k}{2}} \mathrm{det}^{-\frac{1}{2}} \mathbf{A}\right]' \tag{13}\\ 
+P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &amp;=\int P\left(\mathcal{D} \mid \boldsymbol{\omega}, \mathcal{H}_{i}\right) P\left(\boldsymbol{\omega} \mid \mathcal{H}_{i}\right) d \boldsymbol{\omega} \tag{12} \\ 
+&amp; \approx P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right) \Delta \omega\right]'  \tag{13} \\ 
+&amp;=P\left(\mathcal{D} \mid \boldsymbol{\omega}_{\mathrm{MAP}}, \mathcal{H}_{i}\right)\left[P\left(\boldsymbol{\omega}_{\mathrm{MAP}} \mid \mathcal{H}_{i}\right)(2 \pi)^{\frac{k}{2}} \mathrm{det}^{-\frac{1}{2}} \mathbf{A}\right] \tag{14}\\ 
 &amp;=\text { Best Likelihood Fit } \times \text { Occam Factor } 
 \end{align*}
 \end{split}\]</div>
-<p>这可以解释为对模型边缘似然的一种黎曼近似，是代表边缘似然峰值的 <code class="docutils literal notranslate"><span class="pre">最佳似然拟合（Best</span> <span class="pre">Likelihood</span> <span class="pre">Fit）</span></code>， <code class="docutils literal notranslate"><span class="pre">奥卡姆因子（Occam</span> <span class="pre">Factor）</span> <span class="pre">是高斯分布峰值附近曲线的特征宽度之比</span></code>，可以解释为给定模型 <span class="math notranslate nohighlight">\(\mathcal{H}_i\)</span> 的后验宽度 <span class="math notranslate nohighlight">\(∆ω\)</span> 与先验宽度 <span class="math notranslate nohighlight">\(∆ω_0\)</span> 之比，计算公式为：</p>
+<p>这可以解释为对模型边缘似然的一种黎曼近似，通过两个要素来表示，一是用于表示边缘似然高斯分布峰值的 <code class="docutils literal notranslate"><span class="pre">最佳似然拟合（Best</span> <span class="pre">Likelihood</span> <span class="pre">Fit）</span></code>， 二是表示高斯分布峰值附近曲线特征宽度的<code class="docutils literal notranslate"><span class="pre">奥卡姆因子（Occam</span> <span class="pre">Factor）</span></code>，奥卡姆因子可理解为给定模型 <span class="math notranslate nohighlight">\(\mathcal{H}_i\)</span> 的后验分布宽度 <span class="math notranslate nohighlight">\(∆ω\)</span> 与先验范围 <span class="math notranslate nohighlight">\(∆ω_0\)</span> 之比，计算公式为：</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Occam Factor}  =\frac{\Delta \omega}{\Delta \omega_{0}} \tag{15}
 \]</div>
-<p>这意味着奥卡姆因子是参数空间中从先验到后验的变化率。图 4 展示了此概念，一个能够表示大范围数据的复杂模型（ <span class="math notranslate nohighlight">\(\mathcal{H}_2\)</span> ）将拥有更宽的边缘似然，因此具有更大的奥卡姆因子。而简单模型（<span class="math notranslate nohighlight">\(\mathcal{H}_1\)</span> ）捕获复杂生成过程的能力较弱，但较小范围的数据能够更确定地建模，从而产生较低的奥卡姆因子。这导致了模型复杂性的天然正规化：不必要的复杂模型通常会导致较宽的后验分布，从而导致较大奥卡姆因子以及给定模型较低的边缘似然。类似的，一个弱信息（分散平坦的）先验将导致奥卡姆因子降低，进一步直观地解释了贝叶斯设置中的正则化（即所谓 “贝叶斯方法内置奥卡姆剃刀”）。</p>
+<p>这意味着奥卡姆因子是参数空间中从先验到后验的变化率。图 4 展示了此概念，<u>一个能够表示大范围数据的复杂模型（ <span class="math notranslate nohighlight">\(\mathcal{H}_2\)</span> ）将拥有更宽的边缘似然，因此具有更大的奥卡姆因子。而简单模型（<span class="math notranslate nohighlight">\(\mathcal{H}_1\)</span> ）捕获复杂生成过程的能力较弱，但较小范围的数据能够更确定地建模，从而产生较小的奥卡姆因子。这导致了模型复杂性的天然正规化：从模型复杂性方面，不必要的复杂模型通常会导致较宽的后验分布、较大的奥卡姆因子以及给定模型较低的边缘似然。从先验方面，一个弱信息先验（分散平坦， <span class="math notranslate nohighlight">\(∆ω_0\)</span> 较大）也会导致较小的奥卡姆因子，并直观地解释了贝叶斯设置中的正则化（即所谓 “贝叶斯方法内置奥卡姆剃刀”）</u>。</p>
 <p><img alt="" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021052615491522.webp" /></p>
-<p>图 4：边缘似然在评估不同模型中发挥的作用。简单模型 <span class="math notranslate nohighlight">\(\mathcal{H}_1\)</span> 能够以更大的强度预测较小范围的数据，而较复杂的模型 <span class="math notranslate nohighlight">\(\mathcal{H}_2\)</span> 尽管概率较低，但能够表示较大范围的数据，改编自 <code class="docutils literal notranslate"><span class="pre">[46，47]</span></code>。</p>
+<p>图 4：边缘似然在模型评估中发挥的作用。简单模型 <span class="math notranslate nohighlight">\(\mathcal{H}_1\)</span> 能以更大的强度预测较小范围的数据，而复杂模型 <span class="math notranslate nohighlight">\(\mathcal{H}_2\)</span> 尽管预测强度较低，但能够预测更大范围的
+数据，改编自 <code class="docutils literal notranslate"><span class="pre">[46，47]</span></code>。</p>
 <p>如前所述，使用该证据框架需要计算边缘似然，这是贝叶斯建模中最关键的挑战。考虑到近似计算边缘似然所需的大量成本，利用该证据框架比较许多不同的模型似乎不可行。</p>
-<p>尽管如此，证据框架可以用来评估贝叶斯神经网络的解决方案。对于大多数感兴趣的神经网络结构，目标函数是非凸的，具有许多局部极小值。每一个局部极小都可以看作是推断问题的一个可能解。<code class="docutils literal notranslate"><span class="pre">MacKay</span></code> 以此为动机，使用所有局部最小值的 <code class="docutils literal notranslate"><span class="pre">证据函数（Evidence·Function）</span></code> 来进行模型比较 <code class="docutils literal notranslate"><span class="pre">[48]</span></code> 这允许在不需要大量计算的情况下评估模型方案的复杂性。</p>
+<p>尽管如此，证据框架还是可以用来评估贝叶斯神经网络的解决方案。对于大多数感兴趣的神经网络结构，目标函数是非凸的，具有许多局部极小值。每一个局部极小都可以看作是推断问题的一个可能解。<code class="docutils literal notranslate"><span class="pre">MacKay</span></code> 以此为动机，使用所有局部最小值对应的 <code class="docutils literal notranslate"><span class="pre">证据函数（Evidence·Function）</span></code> 来进行模型比较 <code class="docutils literal notranslate"><span class="pre">[48]</span></code> 这允许在不需要大量计算的情况下评估模型方案的复杂性。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>注：后验的高斯分布假设以峰值点为均值，因此当出现多个局部极值时</p>
+</div>
 </div>
 </div>
 <div class="section" id="bnn">
@@ -603,15 +609,17 @@ P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &amp;=\int P\left(\mathcal{D} \mi
 &amp;=-\mathcal{F}\left[q_{\theta}\right]+\log p(\mathcal{D}) \tag{19}
 \end{align*}
 \end{split}\]</div>
-<p>其中，<span class="math notranslate nohighlight">\(\mathcal{F}\left[q_{\theta}\right]=-\mathrm{KL}\left(q_{\theta}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega})\right)+\mathbb{E}_{q}[\log p(\mathcal{D} \mid \boldsymbol{\omega})]'\)</span>。该组合项可将易处理的项与难处理的对数边缘似然分离开来。</p>
-<p>现在可以该函数作为目标函数，并利用反向传播和梯度下降来优化。由于对数边缘似然与参数 <span class="math notranslate nohighlight">\(θ\)</span> 无关，因此目标函数关于 <span class="math notranslate nohighlight">\(θ\)</span> 的导数为零，导数中只剩下包含变分参数的项 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 。</p>
-<p>式 19 中包含 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 的负值项，是为强调 <code class="docutils literal notranslate"><span class="pre">它是一个与目标分布不同但等价的派生分布</span></code> ，并与文献保持一致。</p>
-<p>该结果不是通过最小化真实分布和近似分布之间的 KL 散度，而是通过近似难以处理的对数边缘似然来获得的。通过应用 Jensen 不等式，可以发现 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 形成了对数边缘似然的下界 <code class="docutils literal notranslate"><span class="pre">[49,52]</span></code> 。通过公式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零。对数边缘似然 <span class="math notranslate nohighlight">\(\log p(\mathcal{D})\)</span> 等于近似后验与真实后验之间的 KL 散度与  <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  之和。通过最小化近似后验和真实后验之间的 KL 散度， <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  将越来越接近对数边缘似然。因此， <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  通常被称为边缘似然下界（ELBO），图 5 可视化地说明了该点。</p>
+<p>其中，<span class="math notranslate nohighlight">\(\mathcal{F}\left[q_{\theta}\right]=-\mathrm{KL}\left(q_{\theta}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega})\right)+\mathbb{E}_{q}[\log p(\mathcal{D} \mid \boldsymbol{\omega})]\)</span>。式中包含 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 的负值项，意义上是为强调 <code class="docutils literal notranslate"><span class="pre">它是一个与目标分布不同但等价的派生分布</span></code> ，并与参考文献表示方法保持一致。</p>
+<p>现在可将式 19 作为目标函数，并利用反向传播和梯度下降来优化。由于其第二项（对数边缘似然）与参数 <span class="math notranslate nohighlight">\(θ\)</span> 无关，因此目标函数关于 <span class="math notranslate nohighlight">\(θ\)</span> 的导数为零，导数中只剩下包含变分参数的项 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> ，而 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  通常被称为边缘似然下界（ELBO）。</p>
+<p>通过应用 Jensen 不等式，可以发现 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 形成了对数边缘似然的下界 <code class="docutils literal notranslate"><span class="pre">[49,52]</span></code> 。通过式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零；对数边缘似然 <span class="math notranslate nohighlight">\(\log p(\mathcal{D})\)</span> 等于近似后验与真实后验之间的 KL 散度与  <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  之和。</p>
+<p>或解释为：<code class="docutils literal notranslate"><span class="pre">近似后验（变分）分布到真实后验分布的</span> <span class="pre">KL</span> <span class="pre">散度是对数边缘似然与边缘似然下界限之差</span></code>。该式将求取近似后验分布的原问题，转换成了求取近似对数边缘似然分布的新问题。通过最小化近似后验和真实后验之间的 KL 散度， <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  将越来越接近对数边缘似然。图 5 可视化地说明了三者之间的关系。</p>
 <p><img alt="" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021052616535332.webp" /></p>
-<p>图 5：近似后验和真实后验之间的 KL 散度最小化导致的边缘似然下界最大化。当近似后验和真实后验之间的 KL 散度被最小化时，边缘似然下界 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 收紧到对数边缘似然。因此，最小化 KL 散度等效于最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 。改编自 <code class="docutils literal notranslate"><span class="pre">[53]</span></code> 。</p>
+<p>图 5：近似后验到真实后验之间的 KL 散度最小化导致边缘似然下界最大化。当近似后验到真实后验之间的 KL 散度被最小化时，边缘似然下界 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 收紧到对数边缘似然。因此，最小化 KL 散度等效于最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 。改编自 <code class="docutils literal notranslate"><span class="pre">[53]</span></code> 。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>最小化 KL 散度等效于最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 。</p>
+<p>变分推断的要点：
+（1）采用最优化方法求解后验的近似，被称为近似后验分布或者变分分布；
+（2）将最优化的目标函数从最小化近似后验分布到真实后验分布之间的 KL 散度，转换为最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> ，从而消去了边缘似然的高复杂度计算。</p>
 </div>
 </div>
 <div class="section" id="id17">
@@ -760,11 +768,11 @@ v_{i}(t+\epsilon)=v_{i}\left(t+\frac{\epsilon}{2}\right)+\frac{\epsilon}{2} \fra
 \[
 \nabla_{\Sigma} \mathbb{E}_{p(\boldsymbol{\omega})}[f(\boldsymbol{\omega})]=\frac{1}{2} \mathbb{E}_{p(\boldsymbol{\omega})}\left[\nabla_{\boldsymbol{\omega}} \nabla_{\boldsymbol{\omega}} f(\boldsymbol{\omega})\right] \tag{35}
 \]</div>
-<p>MC 积分可以应用于公式 34 和 35 ，以近似均值和方差参数的梯度。该框架允许对 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 进行优化，以推广到任意对数损失参数模型。</p>
+<p>蒙特卡洛积分可以应用于公式 34 和 35 ，以近似均值和方差参数的梯度。该框架允许对 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 进行优化，以推广到任意对数损失参数模型。</p>
 </div>
 <div class="section" id="id25">
 <h4>（3） 梯度估计的优化方法<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
-<p>虽然解决了将变分推断应用于具有更多隐层的复杂贝叶斯神经网络问题，但由于梯度计算的 MC 近似具有巨大的方差，在实际使用中显示出性能不足 <code class="docutils literal notranslate"><span class="pre">[64]</span></code> ，因此，开发减少方差的梯度估计方法成为变分推断中一个重要的研究课题 <code class="docutils literal notranslate"><span class="pre">[65]</span></code> 。而 <code class="docutils literal notranslate"><span class="pre">打分函数估计器（Score</span> <span class="pre">Function</span> <span class="pre">Estimators）</span></code> 和 <code class="docutils literal notranslate"><span class="pre">路径导数估计器（Pathwise</span> <span class="pre">Derivative</span> <span class="pre">Estimator）</span></code> 是推导梯度近似的两种最常见方法。</p>
+<p>虽然解决了将变分推断应用于具有更多隐层的复杂贝叶斯神经网络问题，但由于梯度计算的蒙特卡洛近似具有巨大的方差，在实际使用中显示出性能不足 <code class="docutils literal notranslate"><span class="pre">[64]</span></code> ，因此，开发减少方差的梯度估计方法成为变分推断中一个重要的研究课题 <code class="docutils literal notranslate"><span class="pre">[65]</span></code> 。而 <code class="docutils literal notranslate"><span class="pre">打分函数估计器（Score</span> <span class="pre">Function</span> <span class="pre">Estimators）</span></code> 和 <code class="docutils literal notranslate"><span class="pre">路径导数估计器（Pathwise</span> <span class="pre">Derivative</span> <span class="pre">Estimator）</span></code> 是推导梯度近似的两种最常见方法。</p>
 <p>打分函数估计器依赖于对对数导数特性的使用：</p>
 <div class="math notranslate nohighlight">
 \[
@@ -818,7 +826,7 @@ v_{i}(t+\epsilon)=v_{i}\left(t+\frac{\epsilon}{2}\right)+\frac{\epsilon}{2} \fra
 \boldsymbol{\Phi}_{\rho}=a\left(\mathbf{X}^{T} \mathbf{W}_{\rho}^{1}\right) \tag{42}
 \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(ρ\)</span> 是从伯努利分布采样的向量，<span class="math notranslate nohighlight">\(\operatorname{diag}(·)\)</span> 运算符从向量创建平方对角矩阵。如此可以看出，一个 <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> 变量在权重矩阵的每一行之间被共享，从而允许维持行间的某些相关性。通过查看权重参数的随机分量，该公式适用于使用变分框架的近似推断。在这项工作中，近似后验是伯努利分布与权重乘积的形式。</p>
-<p>应用重参数化技巧获得相对于网络参数的偏导数，然后形成 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 并执行反向传播以最大化下界。MC 积分被用来逼近解析上难以处理的对数似然。通过用两个小方差高斯分布的混合模型来近似伯努利后验，得到 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 中近似后验与先验分布之间的 KL 散度。</p>
+<p>应用重参数化技巧获得相对于网络参数的偏导数，然后形成 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 并执行反向传播以最大化下界。蒙特卡洛积分被用来逼近解析上难以处理的对数似然。通过用两个小方差高斯分布的混合模型来近似伯努利后验，得到 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 中近似后验与先验分布之间的 KL 散度。</p>
 <p>在上述工作同时，<code class="docutils literal notranslate"><span class="pre">Kingma</span></code> 等人 <code class="docutils literal notranslate"><span class="pre">[71]</span></code> 也发现了 <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> 和其在变分框架中的应用潜力。与 <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> 引入的典型伯努利分布随机变量相比，<code class="docutils literal notranslate"><span class="pre">[71]</span></code> 将注意力集中在引入高斯随机变量 <code class="docutils literal notranslate"><span class="pre">[72]</span></code> 。文中表明在选择与参数无关的适当先验情况下，使用 <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> 的神经网络可被视为近似推断。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Kingma</span></code> 等人还希望使用改进的局部重参数化来降低随机梯度中的方差。这不是在应用仿射变换之前从权重分布进行采样，而是在之后执行采样。例如，考虑 <code class="docutils literal notranslate"><span class="pre">MFVB</span></code> 的情况，其中假设每个权重是独立的高斯 <span class="math notranslate nohighlight">\(W_{ij}∼N(µ_{ij}，σ^2_{ij})\)</span>。在仿射变换 <span class="math notranslate nohighlight">\(\phi_j=\sum_{i=1}^{N_1}(x_iρ_i)w_{ij}\)</span> 之后， <span class="math notranslate nohighlight">\(\phi_j\)</span> 的条件后验分布也将是因子分解的高斯形式：</p>
 <div class="math notranslate nohighlight">
@@ -834,7 +842,7 @@ q\left(\phi_{j} \mid \mathbf{x}\right) &amp;=\mathcal{N}\left(\gamma_{j}, \delta
 </div>
 <div class="section" id="id27">
 <h4>（5） 概率后向传播方法<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
-<p>虽然解决了将变分推断应用于具有更多隐层的复杂贝叶斯神经网络问题，但实际实现已经显示出性能不足，这归因于梯度计算的 MC 近似的巨大方差。<code class="docutils literal notranslate"><span class="pre">Hernandez</span></code> 等人 <code class="docutils literal notranslate"><span class="pre">[64]</span></code> 承认了这一局限性，并提出了一种新的贝叶斯神经网络实用推断方法，名为概率后向传播 (<code class="docutils literal notranslate"><span class="pre">PBP</span></code>)。<code class="docutils literal notranslate"><span class="pre">PBP</span></code> 偏离了典型的变分推断方法，取而代之的是采用 <code class="docutils literal notranslate"><span class="pre">假设密度滤波（Assumed</span> <span class="pre">Density</span> <span class="pre">Filtering,</span> <span class="pre">ADF)</span></code> 方法 <code class="docutils literal notranslate"><span class="pre">[74]</span></code>。在该方法中，通过应用贝叶斯规则以迭代方式更新后验概率：</p>
+<p>虽然解决了将变分推断应用于具有更多隐层的复杂贝叶斯神经网络问题，但实际实现已经显示出性能不足，这归因于梯度计算的蒙特卡洛近似的巨大方差。<code class="docutils literal notranslate"><span class="pre">Hernandez</span></code> 等人 <code class="docutils literal notranslate"><span class="pre">[64]</span></code> 承认了这一局限性，并提出了一种新的贝叶斯神经网络实用推断方法，名为概率后向传播 (<code class="docutils literal notranslate"><span class="pre">PBP</span></code>)。<code class="docutils literal notranslate"><span class="pre">PBP</span></code> 偏离了典型的变分推断方法，取而代之的是采用 <code class="docutils literal notranslate"><span class="pre">假设密度滤波（Assumed</span> <span class="pre">Density</span> <span class="pre">Filtering,</span> <span class="pre">ADF)</span></code> 方法 <code class="docutils literal notranslate"><span class="pre">[74]</span></code>。在该方法中，通过应用贝叶斯规则以迭代方式更新后验概率：</p>
 <div class="math notranslate nohighlight">
 \[
 p\left(\boldsymbol{\omega}_{t+1} \mid \mathcal{D}_{t+1}\right)=\frac{p\left(\boldsymbol{\omega}_{t} \mid \mathcal{D}_{t}\right) p\left(\mathcal{D}_{t+1} \mid \boldsymbol{\omega}_{t}\right)}{p\left(\mathcal{D}_{t+1}\right)} \tag{46}
@@ -965,7 +973,7 @@ D_{H}(p(\omega) \| q(\omega))^{2}=\int\left(p(\omega)^{\frac{1}{2}}-q(\omega)^{\
 p(\boldsymbol{\omega} \mid \mathcal{D}) \propto p(\boldsymbol{\omega}) \mathcal{N}\left(\mathbf{f}^{\boldsymbol{\omega}}(\mathcal{D}), \sigma^{2} \mathbf{I}\right) \tag{59}
 \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(fω(D)\)</span> 是贝叶斯神经网络表示的函数。在 <code class="docutils literal notranslate"><span class="pre">Bayes</span> <span class="pre">by</span> <span class="pre">Backprop</span></code> 和 <code class="docutils literal notranslate"><span class="pre">MC</span> <span class="pre">Dropout</span></code>
-两个模型中，均采用高斯混合模型对 spike-slab 先验建模。然后用各自方法，求出模型的近似后验 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span>。对于 <code class="docutils literal notranslate"><span class="pre">Bayes</span> <span class="pre">by</span> <span class="pre">Backprop</span></code>，近似后验分布是完全分解的高斯分布，而对于 <code class="docutils literal notranslate"><span class="pre">MC</span> <span class="pre">Dropout</span></code>，近似后验分布是缩放了的伯努利分布。利用每个模型的近似后验，可以使用 MC 积分做出点或区间预测。前两个点可以近似为 <code class="docutils literal notranslate"><span class="pre">[39]</span></code>，</p>
+两个模型中，均采用高斯混合模型对 spike-slab 先验建模。然后用各自方法，求出模型的近似后验 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span>。对于 <code class="docutils literal notranslate"><span class="pre">Bayes</span> <span class="pre">by</span> <span class="pre">Backprop</span></code>，近似后验分布是完全分解的高斯分布，而对于 <code class="docutils literal notranslate"><span class="pre">MC</span> <span class="pre">Dropout</span></code>，近似后验分布是缩放了的伯努利分布。利用每个模型的近似后验，可以使用 蒙特卡洛积分做出点或区间预测。前两个点可以近似为 <code class="docutils literal notranslate"><span class="pre">[39]</span></code>，</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -1005,7 +1013,7 @@ p(\boldsymbol{\omega} \mid \mathcal{D}) \propto p(\boldsymbol{\omega}) \mathcal{
 \[
 p(\boldsymbol{\omega} \mid \mathcal{D}) \propto p(\boldsymbol{\omega}) \times \operatorname{softmax}\left(\mathbf{f}^{\boldsymbol{\omega}}(\mathcal{D})\right) \tag{64}
 \]</div>
-<p>利用 <code class="docutils literal notranslate"><span class="pre">Bayes</span> <span class="pre">by</span> <span class="pre">Backprop</span></code>求出近似后验。可使用式 60 找到测试样本的预测平均值，并且使用 MC 积分来近似可信区间 <code class="docutils literal notranslate"><span class="pre">[35]</span></code>。</p>
+<p>利用 <code class="docutils literal notranslate"><span class="pre">Bayes</span> <span class="pre">by</span> <span class="pre">Backprop</span></code>求出近似后验。可使用式 60 找到测试样本的预测平均值，并且使用 蒙特卡洛积分来近似可信区间 <code class="docutils literal notranslate"><span class="pre">[35]</span></code>。</p>
 <p><code class="docutils literal notranslate"><span class="pre">[123]</span></code> 在均为 LeNet 架构的普通 CNN 网络与 BCNN 网络间做了比较 。使用 BCNN 的平均输出进行分类，并使用可信区间来评估模型的不确定性。在 MNIST 数据集中的 10,000 张测试图像上，两个网络的总体预测显示出接近的性能。BCNN 的测试预测准确率为 98.99%，而普通网络的预测准确率为 99.92%，略有提高。虽然竞争性预测性能是必不可少的，但 BCNN 的主要好处是提供了有关预测不确定性的有价值信息。难以分类的数字示例显示在附录中，并附有平均预测值和每类 95% 可信区间的曲线图。从这些例子中，可以看到这些具有挑战性的图像的大量预测不确定性，这些不确定性可以用来在实际场景中做出更明智的决策。</p>
 <p>这种不确定性信息对于许多感兴趣的场景来说是无价的。随着统计模型越来越多地用于包含人类交互的复杂任务，这些系统中的许多系统基于其感知的世界模型做出负责任的决策至关重要。例如，神经网络在自动驾驶汽车的开发中被大量使用。由于场景的高度可变性和与人类互动相关的复杂性，自动驾驶汽车的开发是一项令人难以置信的具有挑战性的壮举。目前的技术不足以安全地实现这项任务，正如前面讨论的那样，这些技术的使用已导致多人死亡 <code class="docutils literal notranslate"><span class="pre">[24，25]</span></code>。在这样一个高度复杂的系统中对所有变量进行建模是不可能的。这伴随着不完美的模型和对近似推断的依赖，重要的是模型可以传达与决策相关的任何不确定性。至关重要的是，我们必须承认，所有模型从本质上都是错误的。这就是为什么概率模型在此场景中更受青睐的原因：有一个基本理论来处理数据中的异质性，并解释模型中未包含变量引起的不确定性。至关重要的是，用于此类复杂场景的模型在用于此类复杂和高风险场景时能够传达其不确定性。</p>
 </div>
