@@ -242,7 +242,7 @@
        </li>
        <li class="toc-h5 nav-item toc-entry">
         <a class="reference internal nav-link" href="#id15">
-         （4）早期边缘似然的拉普拉斯近似
+         （4）早期的后验高斯假设与拉普拉斯近似
         </a>
        </li>
       </ul>
@@ -254,7 +254,7 @@
       <ul class="nav section-nav flex-column">
        <li class="toc-h5 nav-item toc-entry">
         <a class="reference internal nav-link" href="#id16">
-         （1）变分推断的原理
+         （1）什么是变分推断（变分推断原理）？
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
@@ -556,7 +556,7 @@ P\left(\mathcal{H}_{i} \mid \mathcal{D}\right) \propto P\left(\mathcal{D} \mid \
 \]</div>
 </div>
 <div class="section" id="id15">
-<h5>（4）早期边缘似然的拉普拉斯近似<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<h5>（4）早期的后验高斯假设与拉普拉斯近似<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
 <p>式 11 中的数据依赖项是该模型的边缘似然。尽管对其做出 <code class="docutils literal notranslate"><span class="pre">后验归一化常数</span></code> 的解释很好理解，但和前面所提到的一样，对于大多数贝叶斯神经网络来说，求边缘似然的分布非常困难。</p>
 <p>论文假设<code class="docutils literal notranslate"><span class="pre">边缘似然呈高斯分布</span></code>，并提出了边缘似然的拉普拉斯近似：</p>
 <div class="admonition note">
@@ -591,17 +591,20 @@ P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &amp;=\int P\left(\mathcal{D} \mi
 </div>
 <div class="section" id="bnn">
 <h4>2.3.2 早期 BNN 的变分推断方法<a class="headerlink" href="#bnn" title="Permalink to this headline">¶</a></h4>
-<p>机器学习社区在优化问题上一直表现出色。其中许多最大似然模型（如支持向量机和线性高斯模型）的目标函数都是凸函数，但神经网络的目标函数是高度非凸的，具有许多局部极小值。此特点催生了基于梯度的优化方法，如反向传播 <code class="docutils literal notranslate"><span class="pre">[3]</span></code> 。这种优化方法可以通过 <code class="docutils literal notranslate"><span class="pre">变分推断（Variational</span> <span class="pre">Inference</span> <span class="pre">）</span></code> 在贝叶斯统计方法中进行推广。</p>
+<p>早期基于高斯分布假设，通过构造近似分布的后验推断方法，在面临复杂后验分布时遇到极大的困难，特别是在高维度、复杂分布情况下，通过简单函数构造分布的思想几乎不可行。</p>
+<p>而机器学习社区在优化问题上一直表现出色。其中许多最大似然模型（如支持向量机和线性高斯模型）的目标函数都是凸函数，但神经网络的目标函数是高度非凸的，具有许多局部极小值。针对该特点，机器学习社区开发出了基于梯度的优化方法，如反向传播 <code class="docutils literal notranslate"><span class="pre">[3]</span></code> 。由此带来联想，是否可以将这种优化方法引入到后验分布的推断中呢？</p>
+<p>答案是肯定的， <code class="docutils literal notranslate"><span class="pre">变分推断（Variational</span> <span class="pre">Inference</span> <span class="pre">）</span></code> 就是该优化方法在贝叶斯统计中的推广。</p>
 <div class="section" id="id16">
-<h5>（1）变分推断的原理<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
-<p>变分推断是一种近似推断方法，它将贝叶斯推断过程中所需的边缘化计算定义为一个优化问题 <code class="docutils literal notranslate"><span class="pre">[49，50，51]</span></code> 。变分推断首先假设后验分布的形式，然后通过优化方法找到最接近真实后验的解。这种假设简化了计算，并提供了可操作性。</p>
-<p>变分推断的基本思想是：假设后验分布 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span> 是参数集 <span class="math notranslate nohighlight">\(ω\)</span> 上的概率密度函数（被称为 <code class="docutils literal notranslate"><span class="pre">变分分布</span></code>），该分布被由 <span class="math notranslate nohighlight">\(\theta\)</span> 参数化的某一分布族所控制，那么通过优化参数 <span class="math notranslate nohighlight">\(\theta\)</span> 来减小变分分布 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span> 与真实后验 <span class="math notranslate nohighlight">\(p(ω|D)\)</span> 之间的差异性，就可以逐步得到真实后验分布的近似分布 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span> 。</p>
-<p>变分推断需要一种度量变分分布与真实分布之间相似性的手段作为目标函数，而 <code class="docutils literal notranslate"><span class="pre">KL</span> <span class="pre">散度</span></code> 就是最常用的一种度量：</p>
+<h5>（1）什么是变分推断（变分推断原理）？<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<p>变分推断是一种近似推断方法，它将贝叶斯推断过程中所需的边缘化计算定义为一个优化问题 <code class="docutils literal notranslate"><span class="pre">[49，50，51]</span></code> 。与拉普拉斯近似的思路类似，变分推断首先假设后验分布的参数化形式，然后通过优化方法找到该分布最接近真实后验分布的解。这种假设简化了计算，并提供了可操作性。</p>
+<p>具体而言就是：假设后验分布可以由参数集 <span class="math notranslate nohighlight">\(w\)</span> 上的函数 <span class="math notranslate nohighlight">\(q_\theta(w)\)</span> 表示， <span class="math notranslate nohighlight">\(q_\theta(w)\)</span> 被称为 <code class="docutils literal notranslate"><span class="pre">变分分布</span></code> 或 <code class="docutils literal notranslate"><span class="pre">近似后验分布</span></code>，且该分布被由 <span class="math notranslate nohighlight">\(\theta\)</span> 参数化的某一分布族控制，那么通过优化参数 <span class="math notranslate nohighlight">\(\theta\)</span> 来调整变分分布 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span> ， 使其与真实后验 <span class="math notranslate nohighlight">\(p(ω|\mathcal{D})\)</span> 之间的差异性减小，就可以逐步得到与真实后验分布非常相似的 <span class="math notranslate nohighlight">\(q_θ(ω)\)</span> 。</p>
+<p>变分推断需要一种度量变分分布与真实分布之间相似性的手段作为目标函数，而 <code class="docutils literal notranslate"><span class="pre">KL</span> <span class="pre">散度</span></code> 是最常用的一种：</p>
 <div class="math notranslate nohighlight">
 \[
 \text{KL}\left(q_{\boldsymbol{\theta}}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega} \mid \mathcal{D})\right)=\int q_{\boldsymbol{\theta}}(\boldsymbol{\omega}) \log \frac{q_{\boldsymbol{\theta}}(\boldsymbol{\omega})}{p(\boldsymbol{\omega} \mid \mathcal{D})} d \boldsymbol{\omega} \tag{16}
 \]</div>
-<p>对于变分推断，可将式 16 用作参数 <span class="math notranslate nohighlight">\(θ\)</span> 的最小化目标函数，进而将推断问题转变成最优化问题。式 16 可进一步扩展为：</p>
+<p>分布 q 到分布 p 的 KL 散度越小，说明两者之间越相似。</p>
+<p>对于变分推断，可将式 16 用作参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的最小化目标函数，将推断问题转变成 <span class="math notranslate nohighlight">\(\theta\)</span> 的最优化求解问题。式 16 可进一步扩展为：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*} 
@@ -610,31 +613,36 @@ P\left(\mathcal{D} \mid \mathcal{H}_{i}\right) &amp;=\int P\left(\mathcal{D} \mi
 \end{align*}
 \end{split}\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(\mathcal{F}\left[q_{\theta}\right]=-\mathrm{KL}\left(q_{\theta}(\boldsymbol{\omega}) \| p(\boldsymbol{\omega})\right)+\mathbb{E}_{q}[\log p(\mathcal{D} \mid \boldsymbol{\omega})]\)</span>。式中包含 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 的负值项，意义上是为强调 <code class="docutils literal notranslate"><span class="pre">它是一个与目标分布不同但等价的派生分布</span></code> ，并与参考文献表示方法保持一致。</p>
-<p>现在可将式 19 作为目标函数，并利用反向传播和梯度下降来优化。由于其第二项（对数边缘似然）与参数 <span class="math notranslate nohighlight">\(θ\)</span> 无关，因此目标函数关于 <span class="math notranslate nohighlight">\(θ\)</span> 的导数为零，导数中只剩下包含变分参数的项 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> ，而 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  通常被称为边缘似然下界（ELBO）。</p>
-<p>通过应用 Jensen 不等式，可以发现 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 形成了对数边缘似然的下界 <code class="docutils literal notranslate"><span class="pre">[49,52]</span></code> 。通过式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零；对数边缘似然 <span class="math notranslate nohighlight">\(\log p(\mathcal{D})\)</span> 等于近似后验与真实后验之间的 KL 散度与  <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  之和。</p>
-<p>或解释为：<code class="docutils literal notranslate"><span class="pre">近似后验（变分）分布到真实后验分布的</span> <span class="pre">KL</span> <span class="pre">散度是对数边缘似然与边缘似然下界限之差</span></code>。该式将求取近似后验分布的原问题，转换成了求取近似对数边缘似然分布的新问题。通过最小化近似后验和真实后验之间的 KL 散度， <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  将越来越接近对数边缘似然。图 5 可视化地说明了三者之间的关系。</p>
+<p>现在可将式 19 作为目标函数，并利用反向传播和梯度下降来优化。由于其第二项（对数边缘似然）与参数 <span class="math notranslate nohighlight">\(\theta\)</span> 无关，因此目标函数关于 <span class="math notranslate nohighlight">\(\theta\)</span> 的导数为零，导数中只剩下包含变分参数的项 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> ，而 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  通常被称为边缘似然的下界（ELBO） <code class="docutils literal notranslate"><span class="pre">[49,52]</span></code> 。</p>
+<p>通过式 19 注意到： KL 散度严格 ≥ 0 且仅当两个分布相等时才等于零；对数边缘似然 <span class="math notranslate nohighlight">\(\log p(\mathcal{D})\)</span> 等于变分分布到真实分布的 KL 散度与边缘似然的下界（ELBO）之和。</p>
+<p>或换一种解释为：<code class="docutils literal notranslate"><span class="pre">变分分布到真实分布的</span> <span class="pre">KL</span> <span class="pre">散度是对数边缘似然与边缘似然下界</span> <span class="pre">ELBO</span> <span class="pre">之差</span> </code>。该式实质上是将<code class="docutils literal notranslate"><span class="pre">利用</span> <span class="pre">KL</span> <span class="pre">散度求取近似后验分布</span></code>的原问题，转换成了<code class="docutils literal notranslate"><span class="pre">利用</span> <span class="pre">ELBO</span> <span class="pre">求取近似对数边缘似然分布</span></code>的新问题，而新问题中消去了对数边缘似然的计算，效率得到较大提升。通过最小化变分分布到真实后验分布的 KL 散度， <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span>  将越来越接近对数边缘似然。图 5 可视化地说明了三者之间的关系。</p>
 <p><img alt="" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021052616535332.webp" /></p>
-<p>图 5：近似后验到真实后验之间的 KL 散度最小化导致边缘似然下界最大化。当近似后验到真实后验之间的 KL 散度被最小化时，边缘似然下界 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 收紧到对数边缘似然。因此，最小化 KL 散度等效于最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 。改编自 <code class="docutils literal notranslate"><span class="pre">[53]</span></code> 。</p>
+<p>图 5：最小化变分分布到真实后验分布的 KL 散度等效于最大化边缘似然的下界 ELBO。当变分分布到真实后验分布的 KL 散度被最小化时，边缘似然下界 <span class="math notranslate nohighlight">\(\mathcal{F}[q_θ]\)</span> 收紧到对数边缘似然。因此，最小化 KL 散度等效于最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 。改编自 <code class="docutils literal notranslate"><span class="pre">[53]</span></code> 。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>变分推断的要点：
-（1）采用最优化方法求解后验的近似，被称为近似后验分布或者变分分布；
-（2）将最优化的目标函数从最小化近似后验分布到真实后验分布之间的 KL 散度，转换为最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> ，从而消去了边缘似然的高复杂度计算。</p>
+（1）是一种近似推断，需要构造变分分布的形式；
+（2）采用最优化方法求解变分分布的参数，进而获得后验分布的近似形式；
+（3）将优化目标从最小化变分分布到真实后验分布的 KL 散度，转换为最大化边缘似然下界 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> ，从而消去了边缘似然的高复杂度计算，提升了计算效率。</p>
 </div>
 </div>
 <div class="section" id="id17">
 <h5>（2）变分推断在神经网络中的早期应用<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h5>
-<p><code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Van</span> <span class="pre">Camp</span></code> <code class="docutils literal notranslate"><span class="pre">[54]</span></code> 首次将变分推断应用于贝叶斯神经网络，试图解决神经网络中的过拟合问题。他们认为，通过模型权重的概率观点，神经网络可包含的信息量会减少，网络会得到简化。该表述从信息论<code class="docutils literal notranslate"><span class="pre">（特别是最小描述性长度，Minimum</span> <span class="pre">Descriptive</span> <span class="pre">Length）</span></code> 角度出发，但导致了相当于变分推断的框架。</p>
-<p><code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 等人的研究使用了变分推断中常用的 <code class="docutils literal notranslate"><span class="pre">平均场变分贝叶斯</span> <span class="pre">(MFVB)</span></code> 方法。 平均场变分贝叶斯方法假设 <code class="docutils literal notranslate"><span class="pre">变分分布对参数实施了因子分解</span></code> ，而 <code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 等人则进一步假设 <code class="docutils literal notranslate"><span class="pre">变分分布对参数实施了由若干独立高斯分布构成因子分解</span></code>：</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Van</span> <span class="pre">Camp</span></code> <code class="docutils literal notranslate"><span class="pre">[54]</span></code> 首次将变分推断应用于贝叶斯神经网络，试图解决神经网络中的过拟合问题。他们认为，通过使用神经网络模型权重的概率视角，权重包含的信息量会减少，神经网络会得到简化。该表述从信息论<code class="docutils literal notranslate"><span class="pre">（特别是最小描述性长度，Minimum</span> <span class="pre">Descriptive</span> <span class="pre">Length）</span></code> 角度出发，但导致了相当于变分推断的框架。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 等人的研究使用了变分推断中常用的 <code class="docutils literal notranslate"><span class="pre">平均场变分贝叶斯</span> <span class="pre">(MFVB)</span></code> 方法。 平均场变分贝叶斯方法假设 <code class="docutils literal notranslate"><span class="pre">变分分布对参数实施了因子分解</span></code> ，而 <code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 等人则进一步假设 <code class="docutils literal notranslate"><span class="pre">变分分布对参数实施了由若干独立的高斯分布构成的因子分解</span></code>：</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Hinton等人的方法本质上是假设所有的权重是相互独立的随机变量，并且每个随机变量都服从高斯分布。而根据概率公式，变分分布可分解为各权重因子分布的乘积。而参数 <span class="math notranslate nohighlight">\(\theta\)</span> 则是所有 <span class="math notranslate nohighlight">\(\{\mu_i,\sigma_i\}\)</span> 构成的集合。</p>
+</div>
 <div class="math notranslate nohighlight">
 \[
 q_{\boldsymbol{\theta}}(\boldsymbol{\omega})=\prod_{i=1}^{P} \mathcal{N}\left(w_{i} \mid \mu_{i}, \sigma_{i}^{2}\right) \tag{20}
 \]</div>
-<p>其中 <span class="math notranslate nohighlight">\(P\)</span> 是网络中权重的数量。对于只有一个隐层的回归网络，该变分分布有解析解。能够获得解析解是一种理想特性，因为它可以极大地减少执行推断的时间。</p>
+<p>其中 <span class="math notranslate nohighlight">\(P\)</span> 是神经网络中权重的数量。对于只有一个隐层的回归网络，该变分分布存在解析解。能够获得解析解是一种理想特性，因为它可以极大地减少执行推断的时间。</p>
 </div>
 <div class="section" id="id18">
 <h5>（3）变分推断的改进<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
-<p>这项工作存在几个问题，其中最突出的问题是假设变分分布被因子分解为单个网络权重的高斯分布。众所周知，神经网络中的参数之间存在强相关性。因子分解方法实际上是通过牺牲参数之间的相关性来简化计算。<code class="docutils literal notranslate"><span class="pre">Mackay</span></code> 在对贝叶斯神经网络的早期调研中强调了该问题 <code class="docutils literal notranslate"><span class="pre">[32]</span></code>，并提出通过对隐层的输入做预处理，可以获得更全面的近似后验分布。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hinton</span></code> 等人的工作存在几个问题，其中最突出的问题是假设变分分布被因子分解为单个网络权重的高斯分布。众所周知，神经网络中的参数之间存在强相关性。因子分解方法实际上是通过牺牲参数之间的相关性来简化了计算。<code class="docutils literal notranslate"><span class="pre">Mackay</span></code> 在对贝叶斯神经网络的早期调研中强调了该问题 <code class="docutils literal notranslate"><span class="pre">[32]</span></code>，并提出通过对隐层的输入做预处理，可以获得更全面的近似后验分布。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Barber</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Bishop</span></code> <code class="docutils literal notranslate"><span class="pre">[53]</span></code> 再次强调了该问题，并扩展了 <code class="docutils literal notranslate"><span class="pre">[54]</span></code> 中的工作，允许通过使用 <code class="docutils literal notranslate"><span class="pre">满秩高斯</span></code> 的后验变分分布来捕获参数间的完全相关性。对于使用 Sigmoid 激活函数的单隐层回归网络，提供了评估 <code class="docutils literal notranslate"><span class="pre">ELBO</span></code> 的解析表达式。该方法通过使用适当缩放的误差函数替换 Sigmoid 来实现。</p>
 <p>此方案的问题是参数数量过多。对于完全协方差模型，该方案中的参数数量是神经网络权重数量的二次函数。为纠正该点，<code class="docutils literal notranslate"><span class="pre">Barber</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Bishop</span></code> 对因子分析中经常使用的协方差提出了一种限制形式，</p>
 <div class="math notranslate nohighlight">
