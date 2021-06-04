@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>贝叶斯深度学习研究综述 &#8212; 贝叶斯神经网络</title>
+    <title>第 4 章 贝叶斯深度学习研究综述 &#8212; 贝叶斯神经网络</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -53,7 +53,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="贝叶斯神经网络最新综述" href="chapter01-BayesNeuralNetworks.html" />
+    <link rel="next" title="第 5 章 深层贝叶斯神经网络的变分推断" href="chapter2-2-VariationalInferenceInDeepBNN.html" />
+    <link rel="prev" title="第 3 章 浅层贝叶斯神经网络的 MCMC 推断" href="chapter1-3-EarlyMCMCInferenceInBNN.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -90,15 +91,52 @@
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<p class="caption">
+ <span class="caption-text">
+  第一篇 早期贝叶斯神经网络
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter01-BayesNeuralNetworks.html">
-   贝叶斯神经网络最新综述
+  <a class="reference internal" href="chapter1-1-BayesNeuralNetworks.html">
+   第1章 贝叶斯神经网络概述
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-2-EarlyVariationalInferenceInBNN.html">
+   第 2 章 浅层贝叶斯神经网络中的变分推断
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-3-EarlyMCMCInferenceInBNN.html">
+   第 3 章 浅层贝叶斯神经网络的 MCMC 推断
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  第二篇 深度贝叶斯神经网络
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   贝叶斯深度学习研究综述
+   第 4 章 贝叶斯深度学习研究综述
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter2-2-VariationalInferenceInDeepBNN.html">
+   第 5 章 深层贝叶斯神经网络的变分推断
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter2-3-MCDropout.html">
+   第 6 章 MCDropout 变分推断法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter2-4-BayesbyBackprop.html">
+   第 7 章 贝叶斯后向传播推断法
   </a>
  </li>
 </ul>
@@ -142,7 +180,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/chapter02-BayesDeepLearning.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/chapter2-1-BayesDeepLearning.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -540,7 +578,7 @@
               <div>
                 
   <div class="section" id="id1">
-<h1>贝叶斯深度学习研究综述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>第 4 章 贝叶斯深度学习研究综述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://www.google.com/url?q=http://www.wanghao.in&amp;sa=D&amp;ust=1595195435875000&amp;usg=AOvVaw3I4lmPqmkH08NZ12iOb1xN">Hao Wang</a>， <a class="reference external" href="https://www.google.com/url?q=https://www.cse.ust.hk/~dyyeung/&amp;sa=D&amp;ust=1595195435875000&amp;usg=AOvVaw2fLKlN2b0ErbskC-Gnq1-O">Dit-Yan Yeung</a></p>
 <p>Massachusetts Institute of Technology</p>
 <p>Hong Kong University of Science and Technology</p>
@@ -1253,7 +1291,8 @@ E\left(\mathbf{h}_{n}^{(l)}, \mathbf{h}_{n}^{(l+1)}\right)=-\left(\mathbf{h}_{n}
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="chapter01-BayesNeuralNetworks.html" title="previous page">贝叶斯神经网络最新综述</a>
+    <a class='left-prev' id="prev-link" href="chapter1-3-EarlyMCMCInferenceInBNN.html" title="previous page">第 3 章 浅层贝叶斯神经网络的 MCMC 推断</a>
+    <a class='right-next' id="next-link" href="chapter2-2-VariationalInferenceInDeepBNN.html" title="next page">第 5 章 深层贝叶斯神经网络的变分推断</a>
 
         </div>
         
