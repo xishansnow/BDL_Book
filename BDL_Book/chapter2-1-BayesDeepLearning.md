@@ -20,7 +20,7 @@ tags:
     - 深度学习
 ---
 
-# 贝叶斯深度学习研究综述
+# 第 4 章 贝叶斯深度学习研究综述
 
 [Hao Wang](https://www.google.com/url?q=http://www.wanghao.in&sa=D&ust=1595195435875000&usg=AOvVaw3I4lmPqmkH08NZ12iOb1xN)， [Dit-Yan Yeung](https://www.google.com/url?q=https://www.cse.ust.hk/~dyyeung/&sa=D&ust=1595195435875000&usg=AOvVaw2fLKlN2b0ErbskC-Gnq1-O)
 

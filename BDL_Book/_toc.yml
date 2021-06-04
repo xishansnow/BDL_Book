@@ -1,4 +1,18 @@
+
 - file: preface
-- file: chapter01-BayesNeuralNetworks
-- file: chapter02-BayesDeepLearning
+
+- part:  '第一篇 早期贝叶斯神经网络'
+  sections:
+    - file: chapter1-1-BayesNeuralNetworks
+    - file: chapter1-2-EarlyVariationalInferenceInBNN
+    - file: chapter1-3-EarlyMCMCInferenceInBNN    
+
+- part: '第二篇 深度贝叶斯神经网络'    
+  sections:
+    - file: chapter2-1-BayesDeepLearning
+    - file: chapter2-2-VariationalInferenceInDeepBNN
+    - file: chapter2-3-MCDropout
+    - file: chapter2-4-BayesbyBackprop
+
+
 
