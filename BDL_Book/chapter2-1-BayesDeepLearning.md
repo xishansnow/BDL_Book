@@ -1,25 +1,3 @@
----
-
-layout:     post
-title:      "   贝叶斯深度学习研究综述  "
-description:   "  贝叶斯深度学习 "
-date:       2021-05-17 10:00:00
-author:     "西山晴雪"
-mathjax:    true
-categories: 
-    - [贝叶斯统计，贝叶斯深度学习]
-    - [GeoAI, 贝叶斯方法]
-tags:
-    - 贝叶斯统计
-    - 贝叶斯深度学习
-    - 感知组件
-    - 任务组件
-    - 铰链组件
-    - 综述
-    - 概率图模型
-    - 深度学习
----
-
 # 第 6 章 深层 BNN 研究综述
 
 [Hao Wang](https://www.google.com/url?q=http://www.wanghao.in&sa=D&ust=1595195435875000&usg=AOvVaw3I4lmPqmkH08NZ12iOb1xN)， [Dit-Yan Yeung](https://www.google.com/url?q=https://www.cse.ust.hk/~dyyeung/&sa=D&ust=1595195435875000&usg=AOvVaw2fLKlN2b0ErbskC-Gnq1-O)
