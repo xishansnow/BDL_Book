@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>第 2 章 浅层贝叶斯神经网络中的变分推断 &#8212; 贝叶斯神经网络</title>
+    <title>第 3 章 浅层 BNN 的变分推断 &#8212; 贝叶斯神经网络</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="第 3 章 浅层贝叶斯神经网络的 MCMC 推断" href="chapter1-3-EarlyMCMCInferenceInBNN.html" />
-    <link rel="prev" title="第1章 贝叶斯神经网络概述" href="chapter1-1-BayesNeuralNetworks.html" />
+    <link rel="next" title="第 4 章 MCMC 方法" href="chapter1-4-MCMCInference-Reference.html" />
+    <link rel="prev" title="第 2 章 变分推断基础" href="chapter1-2-VariationalInference-Reference.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -97,17 +97,27 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter1-1-BayesNeuralNetworks.html">
-   第1章 贝叶斯神经网络概述
+   第1章 贝叶斯神经网络（BNN）概述
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-2-VariationalInference-Reference.html">
+   第 2 章 变分推断基础
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   第 2 章 浅层贝叶斯神经网络中的变分推断
+   第 3 章 浅层 BNN 的变分推断
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter1-3-EarlyMCMCInferenceInBNN.html">
-   第 3 章 浅层贝叶斯神经网络的 MCMC 推断
+  <a class="reference internal" href="chapter1-4-MCMCInference-Reference.html">
+   第 4 章  MCMC 方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-5-EarlyMCMCInferenceInBNN.html">
+   第 5 章 浅层 BNN 的 MCMC 推断
   </a>
  </li>
 </ul>
@@ -119,22 +129,22 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-1-BayesDeepLearning.html">
-   第 4 章 贝叶斯深度学习研究综述
+   第 6 章 深层 BNN 研究综述
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-2-VariationalInferenceInDeepBNN.html">
-   第 5 章 深层贝叶斯神经网络的变分推断
+   第 7 章 深层 BNN 的变分推断
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-3-MCDropout.html">
-   第 6 章 MCDropout 变分推断法
+   第 8 章  MCDropout 变分推断法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-4-BayesbyBackprop.html">
-   第 7 章 贝叶斯后向传播推断法
+   第 9 章 Bayes by Backprop 推断法
   </a>
  </li>
 </ul>
@@ -178,7 +188,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/chapter1-2-EarlyVariationalInferenceInBNN.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/chapter1-3-EarlyVariationalInferenceInBNN.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -209,13 +219,13 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   1 变分推断原理
+  <a class="reference internal nav-link" href="#id1">
+   3.1 变分推断原理
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mfvb">
-   2 平均场变分贝叶斯（MFVB）
+   3.2 平均场变分贝叶斯（MFVB）
   </a>
  </li>
 </ul>
@@ -229,13 +239,13 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>第 2 章 浅层贝叶斯神经网络中的变分推断<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id2">
-<h2>1 变分推断原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="bnn">
+<h1>第 3 章 浅层 BNN 的变分推断<a class="headerlink" href="#bnn" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>3.1 变分推断原理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="mfvb">
-<h2>2 平均场变分贝叶斯（MFVB）<a class="headerlink" href="#mfvb" title="Permalink to this headline">¶</a></h2>
+<h2>3.2 平均场变分贝叶斯（MFVB）<a class="headerlink" href="#mfvb" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -264,8 +274,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="chapter1-1-BayesNeuralNetworks.html" title="previous page">第1章 贝叶斯神经网络概述</a>
-    <a class='right-next' id="next-link" href="chapter1-3-EarlyMCMCInferenceInBNN.html" title="next page">第 3 章 浅层贝叶斯神经网络的 MCMC 推断</a>
+    <a class='left-prev' id="prev-link" href="chapter1-2-VariationalInference-Reference.html" title="previous page">第 2 章 变分推断基础</a>
+    <a class='right-next' id="next-link" href="chapter1-4-MCMCInference-Reference.html" title="next page">第 4 章  MCMC 方法</a>
 
         </div>
         

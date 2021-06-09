@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>第 7 章 贝叶斯后向传播推断法 &#8212; 贝叶斯神经网络</title>
+    <title>第 9 章 Bayes by Backprop 推断法 &#8212; 贝叶斯神经网络</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="第 6 章 MCDropout 变分推断法" href="chapter2-3-MCDropout.html" />
+    <link rel="prev" title="第 8 章 MCDropout 变分推断法" href="chapter2-3-MCDropout.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -96,17 +96,27 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter1-1-BayesNeuralNetworks.html">
-   第1章 贝叶斯神经网络概述
+   第1章 贝叶斯神经网络（BNN）概述
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter1-2-EarlyVariationalInferenceInBNN.html">
-   第 2 章 浅层贝叶斯神经网络中的变分推断
+  <a class="reference internal" href="chapter1-2-VariationalInference-Reference.html">
+   第 2 章 变分推断基础
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter1-3-EarlyMCMCInferenceInBNN.html">
-   第 3 章 浅层贝叶斯神经网络的 MCMC 推断
+  <a class="reference internal" href="chapter1-3-EarlyVariationalInferenceInBNN.html">
+   第 3 章 浅层 BNN 的变分推断
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-4-MCMCInference-Reference.html">
+   第 4 章  MCMC 方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-5-EarlyMCMCInferenceInBNN.html">
+   第 5 章 浅层 BNN 的 MCMC 推断
   </a>
  </li>
 </ul>
@@ -118,22 +128,22 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-1-BayesDeepLearning.html">
-   第 4 章 贝叶斯深度学习研究综述
+   第 6 章 深层 BNN 研究综述
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-2-VariationalInferenceInDeepBNN.html">
-   第 5 章 深层贝叶斯神经网络的变分推断
+   第 7 章 深层 BNN 的变分推断
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-3-MCDropout.html">
-   第 6 章 MCDropout 变分推断法
+   第 8 章  MCDropout 变分推断法
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   第 7 章 贝叶斯后向传播推断法
+   第 9 章 Bayes by Backprop 推断法
   </a>
  </li>
 </ul>
@@ -210,8 +220,8 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>第 7 章 贝叶斯后向传播推断法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="bayes-by-backprop">
+<h1>第 9 章 Bayes by Backprop 推断法<a class="headerlink" href="#bayes-by-backprop" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -239,7 +249,7 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="chapter2-3-MCDropout.html" title="previous page">第 6 章 MCDropout 变分推断法</a>
+    <a class='left-prev' id="prev-link" href="chapter2-3-MCDropout.html" title="previous page">第 8 章  MCDropout 变分推断法</a>
 
         </div>
         

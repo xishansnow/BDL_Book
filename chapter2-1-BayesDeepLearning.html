@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>第 4 章 贝叶斯深度学习研究综述 &#8212; 贝叶斯神经网络</title>
+    <title>第 6 章 深层 BNN 研究综述 &#8212; 贝叶斯神经网络</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -53,8 +53,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="第 5 章 深层贝叶斯神经网络的变分推断" href="chapter2-2-VariationalInferenceInDeepBNN.html" />
-    <link rel="prev" title="第 3 章 浅层贝叶斯神经网络的 MCMC 推断" href="chapter1-3-EarlyMCMCInferenceInBNN.html" />
+    <link rel="next" title="第 7 章 深层 BNN 的变分推断" href="chapter2-2-VariationalInferenceInDeepBNN.html" />
+    <link rel="prev" title="第 5 章 浅层 BNN 的 MCMC 推断" href="chapter1-5-EarlyMCMCInferenceInBNN.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -99,17 +99,27 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter1-1-BayesNeuralNetworks.html">
-   第1章 贝叶斯神经网络概述
+   第1章 贝叶斯神经网络（BNN）概述
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter1-2-EarlyVariationalInferenceInBNN.html">
-   第 2 章 浅层贝叶斯神经网络中的变分推断
+  <a class="reference internal" href="chapter1-2-VariationalInference-Reference.html">
+   第 2 章 变分推断基础
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter1-3-EarlyMCMCInferenceInBNN.html">
-   第 3 章 浅层贝叶斯神经网络的 MCMC 推断
+  <a class="reference internal" href="chapter1-3-EarlyVariationalInferenceInBNN.html">
+   第 3 章 浅层 BNN 的变分推断
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-4-MCMCInference-Reference.html">
+   第 4 章  MCMC 方法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter1-5-EarlyMCMCInferenceInBNN.html">
+   第 5 章 浅层 BNN 的 MCMC 推断
   </a>
  </li>
 </ul>
@@ -121,22 +131,22 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   第 4 章 贝叶斯深度学习研究综述
+   第 6 章 深层 BNN 研究综述
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-2-VariationalInferenceInDeepBNN.html">
-   第 5 章 深层贝叶斯神经网络的变分推断
+   第 7 章 深层 BNN 的变分推断
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-3-MCDropout.html">
-   第 6 章 MCDropout 变分推断法
+   第 8 章  MCDropout 变分推断法
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-4-BayesbyBackprop.html">
-   第 7 章 贝叶斯后向传播推断法
+   第 9 章 Bayes by Backprop 推断法
   </a>
  </li>
 </ul>
@@ -211,90 +221,90 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   1 概述
+  <a class="reference internal nav-link" href="#id1">
+   6.1 概述
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   2 深度学习
+  <a class="reference internal nav-link" href="#id2">
+   6.2 深度学习
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mlp">
-     2.1 多层感知机（MLP）
+     6.2.1 多层感知机（MLP）
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#autocoder">
-     2.2 自编码器（Autocoder）
+     6.2.2 自编码器（Autocoder）
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cnn">
-     2.3 卷积神经网络（CNN）
+     6.2.3 卷积神经网络（CNN）
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#rnn">
-     2.4 循环神经网络（RNN）
+     6.2.4 循环神经网络（RNN）
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   3 概率图模型
+  <a class="reference internal nav-link" href="#id3">
+   6.3 概率图模型
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     6.3.1 主要模型
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     3.1 主要模型
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     3.2 学习与推断
+     6.3.2 学习与推断
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   4 贝叶斯深度学习
+  <a class="reference internal nav-link" href="#id6">
+   6.4 贝叶斯深度学习
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     4.1 贝叶斯神经网络与贝叶斯深度学习简史
+    <a class="reference internal nav-link" href="#id7">
+     6.4.1 贝叶斯神经网络与贝叶斯深度学习简史
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     4.2 通用架构
+    <a class="reference internal nav-link" href="#id8">
+     6.4.2 通用架构
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
+      <a class="reference internal nav-link" href="#id9">
        <strong>
         （1）两个组件
        </strong>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
+      <a class="reference internal nav-link" href="#id10">
        <strong>
         （2）三类变量
        </strong>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id12">
+      <a class="reference internal nav-link" href="#id11">
        （3）面向有监督和无监督的生成式过程
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id13">
+      <a class="reference internal nav-link" href="#id12">
        （4）独立性要求
       </a>
      </li>
@@ -308,15 +318,15 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id14">
+      <a class="reference internal nav-link" href="#id13">
        （6）学习算法
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
-     4.3 感知组件
+    <a class="reference internal nav-link" href="#id14">
+     6.4.3 感知组件
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
@@ -342,8 +352,8 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
-     4.4 任务组件
+    <a class="reference internal nav-link" href="#id15">
+     6.4.4 任务组件
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
@@ -367,85 +377,85 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bdl">
-   5 具体的 BDL 模型和应用
+   6.5 具体的 BDL 模型和应用
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
-     5.1 推荐系统中的有监督贝叶斯深度学习
+    <a class="reference internal nav-link" href="#id16">
+     6.5.1 推荐系统中的有监督贝叶斯深度学习
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#collaborative-deep-learning">
-       5.1.1 协作深度学习（Collaborative Deep Learning）
+       6.5.1.1 协作深度学习（Collaborative Deep Learning）
       </a>
       <ul class="nav section-nav flex-column">
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id18">
+        <a class="reference internal nav-link" href="#id17">
          （1）记法和问题表述：
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id19">
+        <a class="reference internal nav-link" href="#id18">
          （2）协作式深度学习：
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id20">
+        <a class="reference internal nav-link" href="#id19">
          （3）学习
         </a>
        </li>
       </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id21">
-       5.1.2 贝叶斯协作式深度学习
+      <a class="reference internal nav-link" href="#id20">
+       6.5.1.2 贝叶斯协作式深度学习
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#marginalized-collaborative-deep-learning">
-       5.1.3 边缘化协作深度学习（Marginalized Collaborative Deep Learning）
+       6.5.1.3 边缘化协作深度学习（Marginalized Collaborative Deep Learning）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#collaborative-deep-ranking">
-       5.1.4  协作深度排名（Collaborative Deep Ranking）
+       6.5.1.4  协作深度排名（Collaborative Deep Ranking）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#collaborative-variational-autoencoders">
-       5.1.5 协作式变分自动编码器（Collaborative Variational Autoencoders）
+       6.5.1.5 协作式变分自动编码器（Collaborative Variational Autoencoders）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id22">
-       5.1.6 讨论
+      <a class="reference internal nav-link" href="#id21">
+       6.5.1.6 讨论
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id23">
-     5.2 主题模型中的无监督贝叶斯深度学习
+    <a class="reference internal nav-link" href="#id22">
+     6.5.2 主题模型中的无监督贝叶斯深度学习
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#relational-stacked-denoising-autoencoders-as-topic-models">
-       5.2.1 作为主题模型的相关堆叠去噪自动编码器（Relational Stacked Denoising Autoencoders as Topic Models）
+       6.5.2.1 作为主题模型的相关堆叠去噪自动编码器（Relational Stacked Denoising Autoencoders as Topic Models）
       </a>
       <ul class="nav section-nav flex-column">
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id24">
+        <a class="reference internal nav-link" href="#id23">
          （1）问题陈述
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id25">
+        <a class="reference internal nav-link" href="#id24">
          （2）模型构建
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id26">
+        <a class="reference internal nav-link" href="#id25">
          (3) 学习与推断
         </a>
        </li>
@@ -453,26 +463,26 @@
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#sigmoid-deep-poisson-factor-analysis-with-sigmoid-belief-networks">
-       5.2.2 基于 Sigmoid 信念网络的深度泊松因子分析（Deep Poisson Factor Analysis with Sigmoid Belief Networks）
+       6.5.2.2 基于 Sigmoid 信念网络的深度泊松因子分析（Deep Poisson Factor Analysis with Sigmoid Belief Networks）
       </a>
       <ul class="nav section-nav flex-column">
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id27">
+        <a class="reference internal nav-link" href="#id26">
          （1）泊松因子分析
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id28">
+        <a class="reference internal nav-link" href="#id27">
          （2）深泊松因子分析
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id29">
+        <a class="reference internal nav-link" href="#id28">
          （3）使用贝叶斯条件密度滤波进行学习
         </a>
        </li>
        <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#id30">
+        <a class="reference internal nav-link" href="#id29">
          （4）使用随机梯度恒温器进行学习
         </a>
        </li>
@@ -480,76 +490,76 @@
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#boltzmann">
-       5.2.3 用受限 Boltzmann 机器进行深泊松因子分析
+       6.5.2.3 用受限 Boltzmann 机器进行深泊松因子分析
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id31">
-       5.2.4 讨论
+      <a class="reference internal nav-link" href="#id30">
+       6.5.2.4 讨论
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id32">
-     5.3 用于控制的贝叶斯深度表示学习
+    <a class="reference internal nav-link" href="#id31">
+     6.5.3 用于控制的贝叶斯深度表示学习
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#stochastic-optimal-control">
-       5.3.1 随机最优控制（Stochastic Optimal Control）
+       6.5.3.1 随机最优控制（Stochastic Optimal Control）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#bdl-bdl-based-representation-learning-for-control">
-       5.3.2 基于 BDL 的控制表示学习（BDL-Based Representation Learning for Control）
+       6.5.3.2 基于 BDL 的控制表示学习（BDL-Based Representation Learning for Control）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#learning-using-stochastic-gradient-variational-bayes">
-       5.3.3 基于随机梯度变分贝叶斯的学习（Learning Using Stochastic Gradient Variational Bayes）
+       6.5.3.3 基于随机梯度变分贝叶斯的学习（Learning Using Stochastic Gradient Variational Bayes）
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id33">
-       5.3.4 讨论
+      <a class="reference internal nav-link" href="#id32">
+       6.5.3.4 讨论
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id34">
-     5.4 其他贝叶斯深度学习的应用
+    <a class="reference internal nav-link" href="#id33">
+     6.5.4 其他贝叶斯深度学习的应用
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id34">
+       6.5.4.1 链接预测
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id35">
-       5.4.1 链接预测
+       6.5.4.2 自然语言处理
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id36">
-       5.4.2 自然语言处理
+       6.5.4.3 计算机视觉
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id37">
-       5.4.3 计算机视觉
+       6.5.4.4 语音
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id38">
-       5.4.4 语音
+       6.5.4.5 时间序列预测
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id39">
-       5.4.5 时间序列预测
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id40">
-       5.4.6 医疗保健
+       6.5.4.6 医疗保健
       </a>
      </li>
     </ul>
@@ -557,12 +567,12 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id41">
-   6 结论与展望
+  <a class="reference internal nav-link" href="#id40">
+   6.6 结论与展望
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id42">
+  <a class="reference internal nav-link" href="#id41">
    参考文献
   </a>
  </li>
@@ -577,8 +587,8 @@
         
               <div>
                 
-  <div class="section" id="id1">
-<h1>第 4 章 贝叶斯深度学习研究综述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="bnn">
+<h1>第 6 章 深层 BNN 研究综述<a class="headerlink" href="#bnn" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://www.google.com/url?q=http://www.wanghao.in&amp;sa=D&amp;ust=1595195435875000&amp;usg=AOvVaw3I4lmPqmkH08NZ12iOb1xN">Hao Wang</a>， <a class="reference external" href="https://www.google.com/url?q=https://www.cse.ust.hk/~dyyeung/&amp;sa=D&amp;ust=1595195435875000&amp;usg=AOvVaw2fLKlN2b0ErbskC-Gnq1-O">Dit-Yan Yeung</a></p>
 <p>Massachusetts Institute of Technology</p>
 <p>Hong Kong University of Science and Technology</p>
@@ -588,8 +598,8 @@
 <p>【作者 blog】<a class="reference external" href="http://wanghao.in/BDL.html">wanghao.in/BDL.html</a></p>
 <hr class="docutils" />
 <style>p{text-indent:2em;2}</style>
-<div class="section" id="id2">
-<h2>1 概述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>6.1 概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>过去十年中，深度学习在包括视觉对象识别、文本理解和语音识别在内的许多流行感知任务中取得了巨大的成功。这些任务分别对应于人工智能系统的视觉、阅读和听觉能力，它们无疑对 AI 有效感知环境不可或缺。但构建一个实用、全面的 AI 系统，不仅需要感知，更应具备思考的能力。</p>
 <p>以医学诊断为例，医生除了要看可见症状、医学检测数据和患者描述外，还必须寻找症状间的关系，并推断出相应病因。只有如此，医生才能为病人提供医疗建议。此例中，虽然视觉和听觉能力允许医生从病人那里获取信息，但定义医生的关键是思维部分。这里的思维能力可能涉及识别条件依赖、因果推断、逻辑推断和处理不确定性等，它们显然超出了传统深度学习方法的能力。幸运的是，另一种机器学习范式— <code class="docutils literal notranslate"><span class="pre">概率图形模型（</span> <span class="pre">PGM</span> <span class="pre">）</span></code>—擅长概率和推断，尤其是不确定性。问题是，  PGM  在感知任务中效果似乎不如深度学习模型好，特别是感知任务通常涉及大规模和高维信号（如图像和视频）。为解决该问题，将深度学习和 PGM 统一在一个原则性概率框架内是一个自然而然的选择，即<code class="docutils literal notranslate"><span class="pre">贝叶斯深度学习（Bayesian</span> <span class="pre">Deep</span> <span class="pre">Learning，</span> <span class="pre">BDL</span> <span class="pre">）</span></code> 。</p>
 <p>上例中，感知任务涉及感知患者的症状（例如，通过查看医学图像），而推断任务涉及处理条件依赖、因果推断、逻辑推断和不确定性。通过贝叶斯深度学习中的原则性集成，感知任务和推断任务被视为一个整体，相互受益。既能够看到医学图像帮助医生进行诊断和推断，也能看到诊断和推断反过来帮助理解医学图像。假设医生不确定医学图像中的黑斑是什么，但如果她能够推断出病因，则可以帮她更好地决定黑斑是不是肿瘤。</p>
@@ -609,31 +619,31 @@
 <p>第二个挑战是确保感知组件和任务组件之间高效有效的信息交换。理想情况下，一阶和二阶信息（例如，均值和方差）应该能够在两个分量之间来回流动。一种自然的方式是将感知部分表示为 PGM，并将其无缝地连接到特定于任务的 PGM，如 <code class="docutils literal notranslate"><span class="pre">[24,118,121]</span></code> 中所做的那样。</p>
 <p>本文提供了对 BDL 的全面概述，并为各种应用提供了具体模型。文章其余部分安排如下：第 2 节回顾了一些基本的深度学习模型；第 3 节介绍了 PGM 的主要概念和技术；第 4 节将阐述统一 BDL 框架的基本原理，并详细说明实现其感知组件和任务组件的选择；第 5 节回顾了应用于推荐系统、主题模型和控制等多个领域的 BDL 模型，分别展示了 BDL 在监督学习、非监督学习和一般表征学习中的作用；第 6 节对未来研究问题进行了讨论，并对全文进行了总结。</p>
 </div>
-<div class="section" id="id3">
-<h2>2 深度学习<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>6.2 深度学习<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>深度学习通常指两层以上的神经网络。为更好地理解深度学习，我们从最简单的神经网络—多层感知器 (MLP) 开始，说明传统深度学习如何工作。之后，将回顾基于 MLP 的其他几种深度学习模型。该章主要介绍经典深度学习方法，文章中提到的方法包括 MLP、AutoEncoder、CNN、RNN 等。</p>
 <div class="section" id="mlp">
-<h3>2.1 多层感知机（MLP）<a class="headerlink" href="#mlp" title="Permalink to this headline">¶</a></h3>
+<h3>6.2.1 多层感知机（MLP）<a class="headerlink" href="#mlp" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="autocoder">
-<h3>2.2 自编码器（Autocoder）<a class="headerlink" href="#autocoder" title="Permalink to this headline">¶</a></h3>
+<h3>6.2.2 自编码器（Autocoder）<a class="headerlink" href="#autocoder" title="Permalink to this headline">¶</a></h3>
 <p>该部分提一下自编码器。这是一种能将输入编码为更紧凑表示的神经网络，同时能够将这种紧凑表示进行重建。这方面的资料也很多，这里主要说明一下 AE 的变种——SDAE（Stacked Denoising AutoEncoders）</p>
 <p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210519114919ac.webp" /></p>
 <p>SDAE 的结构如上图所示，和 AE 不同的是，<img alt="图片" src="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HW06nU1nJjPg9ads3EgQHxBNOj9yeFeGRt5MzLygT1d6ibicmUkg4IBuxiacXZxv9qSS/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /> 可以看做输入数据！<a class="reference external" href="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">图片</a> 加入噪声或者做了一些随机处理后的结果（比如可以把！<a class="reference external" href="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">图片</a> 中的数据随机选 30%变为零）。所以 SDAE 做的就是试图把处理过的 corrupted data 恢复成 clean data。SDAE 可以转化为如下优化问题：</p>
 <p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtz40YBzeNTG1YsMMwmH83fK6rY181d6bnERMXyAnCkQUiabW62D5ARtg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
 </div>
 <div class="section" id="cnn">
-<h3>2.3 卷积神经网络（CNN）<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h3>
+<h3>6.2.3 卷积神经网络（CNN）<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="rnn">
-<h3>2.4 循环神经网络（RNN）<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h3>
+<h3>6.2.4 循环神经网络（RNN）<a class="headerlink" href="#rnn" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>3 概率图模型<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>6.3 概率图模型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>概率图形模型（Probabilistic Graphical Models，PGM）使用图形表示法来描述随机变量及其之间的关系。与包含节点和边的图类似，PGM 具有表示随机变量的节点和表示它们间概率关系的边。</p>
-<div class="section" id="id5">
-<h3>3.1 主要模型<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>6.3.1 主要模型<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>PGM 本质上有两种类型，有向 PGM（历史遗留下来也称为贝叶斯网络，注意与贝叶斯神经网络的区别）和无向 PGM（也称为马尔可夫随机场） <code class="docutils literal notranslate"><span class="pre">[5]</span></code>。本文主要关注有向 PGM ，有关无向 PGM 的详细信息，请参阅 <code class="docutils literal notranslate"><span class="pre">[5]</span></code>。</p>
 <p>PGM 的一个经典例子是潜狄拉克雷分配 ( Latent Dirichlet Allocation，LDA)，被用于对文档中单词和主题生成关系建模 <code class="docutils literal notranslate"><span class="pre">[8]</span></code> 。通常，PGM 带有模型的图形化表示和一个生成过程，用来描述随机变量是如何一步一步产生的。</p>
 <p>图 4 显示了 LDA 的图模型，相应的生成过程如下：</p>
@@ -647,8 +657,8 @@
 <p>图 4 LDA 的概率图模型，<span class="math notranslate nohighlight">\(J\)</span> 是文档数，<span class="math notranslate nohighlight">\(D\)</span> 是文档中的词数，<span class="math notranslate nohighlight">\(K\)</span> 是主题的数量。</p>
 <p>由于其贝叶斯性质，诸如 LDA 的 PGM 很容易扩展以合并其他信息或执行其他任务。例如，在 LDA 之后，提出了主题模型的不同变体。<code class="docutils literal notranslate"><span class="pre">[7,113]</span></code> 被建议纳入时间信息，<code class="docutils literal notranslate"><span class="pre">[6]</span></code> 通过假设主题之间的相关性扩展了 LDA。<code class="docutils literal notranslate"><span class="pre">[44]</span></code> 将 LDA 从批处理模式扩展到在线设置，从而可以处理大型数据集。在推荐系统上，协作主题回归 ( CTR )<code class="docutils literal notranslate"><span class="pre">[112]</span></code> 扩展了 LDA 以纳入评级信息并提出推荐。然后，该模型被进一步扩展以包含社会信息 <code class="docutils literal notranslate"><span class="pre">[89,115,116]</span></code> 。</p>
 </div>
-<div class="section" id="id6">
-<h3>3.2 学习与推断<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>6.3.2 学习与推断<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>**严格地说，查找参数（如图 4 中的 <span class="math notranslate nohighlight">\(\alpha\)</span> 和 <span class="math notranslate nohighlight">\(\beta\)</span> ) 的过程称为学习，查找给定参数的隐变量（如图 4 中的 <span class="math notranslate nohighlight">\(\theta\)</span> 和 <span class="math notranslate nohighlight">\(z\)</span> ) 的过程称为推断。**然而，如果只给出观测变量（如图 4 中的 <span class="math notranslate nohighlight">\(w\)</span> ），学习和推断通常是交织在一起的。通常，LDA 的学习和推断会在隐变量（对应于推断）更新和参数（对应于学习）更新之间交替进行。一旦学习和推断完成，就可以学习得到参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 和 <span class="math notranslate nohighlight">\(\beta\)</span> 。如果有新文档到来，就可以固定学习到的 <span class="math notranslate nohighlight">\(\alpha\)</span> 和 <span class="math notranslate nohighlight">\(\beta\)</span> ，然后单独执行推断以找到新文档的主题概率 <span class="math notranslate nohighlight">\(\theta_J\)</span> 。</p>
 <p>与 LDA 类似，每种 PGM 都有各种学习和推断算法可用。其中，最具成本效益的方法可能是最大后验概率（MAP），它相当于将隐变量的后验概率最大化。使用 MAP ，学习过程等同于用正则化最小化（或最大化）目标函数。一个著名的例子是 <code class="docutils literal notranslate"><span class="pre">概率矩阵分解</span> <span class="pre">(PMF)[96]</span></code>，其中图模型的学习等价于用 <span class="math notranslate nohighlight">\(L2\)</span> 正则化将一个大矩阵分解成两个低秩矩阵。</p>
 <p>尽管 MAP 效率很高，但它只给出了隐变量（包括模型参数）的点估计。为考虑不确定性并充分利用贝叶斯模型的能力，人们不得不求助于贝叶斯处理，如变分推断和 MCMC 。例如，原始的 LDA 使用变分推断来获得近似真实分布的后验分布 <code class="docutils literal notranslate"><span class="pre">[8]</span></code> 。隐变量和参数的学习则归结为最小化变分分布和真实后验分布之间的 KL 散度。除变分推断，贝叶斯处理的另一选择是 MCMC。例如，已经提出了 MCMC 算法（如 <code class="docutils literal notranslate"><span class="pre">[86]</span></code> ) 来学习 LDA 的后验分布。</p>
@@ -657,12 +667,12 @@
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>4 贝叶斯深度学习<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>6.4 贝叶斯深度学习<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>在这一节中，将列出一些最新的 BDL 模型，它们在推荐系统、主题模型、控制等方面都有应用。这些模型的摘要如表 1 所示。</p>
 <p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtBGyjGq16RGgZzMJaXTVVt91FgJrMiboxQIbtqjCaukCwvRIjTZUe8BQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
-<div class="section" id="id8">
-<h3>4.1 贝叶斯神经网络与贝叶斯深度学习简史<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>6.4.1 贝叶斯神经网络与贝叶斯深度学习简史<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>与 BDL 高度相关的主题是贝叶斯神经网络 ( BNN ) 或神经网络的贝叶斯处理。与其他贝叶斯处理类似， BNN 对神经网络的参数施加先验，目的是学习这些参数的后验分布。在推断阶段，后验分布被边缘化以产生最终预测（此处不知如何理解，感觉应当是基于后验做一次抽样）。此过程被称为贝叶斯模型平均（Bayesian Model Averaging） <code class="docutils literal notranslate"><span class="pre">[5]</span></code> ，可被视为学习了无限数量的神经网络（或神经网络的分布），而后通过集成来聚合结果。</p>
 <blockquote>
 <div><p>注：贝叶斯神经网络通过为神经网络的权重引入不确定性进行正则化（regularization）。你可以把它想象成一个集成（ensemble）了无穷多组神经网络（权重分布上的每一种可能性构成一个确定的神经网络，从此角度看，贝叶斯神经网络可以视为所有可能性的集成）的模型。</p>
@@ -671,11 +681,11 @@
 <p>有趣的是，虽然 BNN 开始于 20 世纪 90 年代，但更广泛意义上的 BDL 研究大约始于 2014 年 <code class="docutils literal notranslate"><span class="pre">[38,114,118,121]</span></code> ，略晚于 2012 年 ImageNet LSVRC 竞赛的深度学习突破 <code class="docutils literal notranslate"><span class="pre">[62]</span></code>。正如将在后面几节中看到的， BNN 通常用作 BDL 模型中的感知组件。</p>
 <p>如今 BDL 越来越受欢迎，已经在推荐系统和计算机视觉等领域获得了成功应用，并成为各种会议研讨会的主题（例如，NeurIPS BDL Workshop 6）。</p>
 </div>
-<div class="section" id="id9">
-<h3>4.2 通用架构<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>6.4.2 通用架构<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>如第 1 节提到的， BDL 是一个原则性的概率框架，包含两个紧密集成的组件：感知组件和任务组件。</p>
-<div class="section" id="id10">
-<h4><strong>（1）两个组件</strong><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4><strong>（1）两个组件</strong><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>图 5 以一个简单的 BDL 模型为例显示了其概率图模型。左侧红色矩形内的部分表示感知组件，右侧蓝色矩形内的部分表示任务组件。通常，感知组件应当是一个具有多个非线性处理层（在 PGM 中表示为链结构）的深度学习模型的概率公式。</p>
 <p>虽然感知组件中的节点和边相对简单，但任务组件中的节点和边通常描述更复杂的变量之间的分布和关系。具体而言，任务组件可采用多种形式。可以是典型的贝叶斯网络（即有向 PGM），例如 LDA、深度贝叶斯网络 <code class="docutils literal notranslate"><span class="pre">[117]</span></code> ，也可以是随机过程 <code class="docutils literal notranslate"><span class="pre">[51，94]</span></code> 。</p>
 <blockquote>
@@ -686,15 +696,15 @@
 <p>图 5  一个 BDL 模型的概率图。左侧红色矩形表示感知组件，右侧蓝色矩形表示任务组件，铰链变量集合 <span class="math notranslate nohighlight">\(Ω_h={H}\)</span> 。</p>
 </center>
 </div>
-<div class="section" id="id11">
-<h4><strong>（2）三类变量</strong><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4><strong>（2）三类变量</strong><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <p>BDL 模型中有三类变量：<code class="docutils literal notranslate"><span class="pre">感知变量（perception</span> <span class="pre">variables）</span></code> 、 <code class="docutils literal notranslate"><span class="pre">铰链变量（hinge</span> <span class="pre">variables</span> <span class="pre">）</span></code> 和 <code class="docutils literal notranslate"><span class="pre">任务变量（task</span> <span class="pre">variables</span> <span class="pre">）</span></code> 。</p>
 <p>本文使用 <span class="math notranslate nohighlight">\(Ω_p\)</span> 表示感知变量集（例如，图 5 中的 <span class="math notranslate nohighlight">\(X_0\)</span> 、 <span class="math notranslate nohighlight">\(X_1\)</span> 和 <span class="math notranslate nohighlight">\(W_1\)</span> 等），它们是感知组件中的变量。通常，<span class="math notranslate nohighlight">\(Ω_p\)</span> 是深度学习模型的概率公式中出现的 <code class="docutils literal notranslate"><span class="pre">权重参数</span></code> 和 <code class="docutils literal notranslate"><span class="pre">神经元（隐变量）</span></code> 。</p>
 <p><span class="math notranslate nohighlight">\(Ω_h\)</span> 用于表示铰链变量集（如图 5 中的 <span class="math notranslate nohighlight">\(H\)</span> )，此类变量来自于任务组件，但直接与感知组件交互。</p>
 <p>任务变量集（如图 5 中的 <span class="math notranslate nohighlight">\(A\)</span> 、<span class="math notranslate nohighlight">\(B\)</span> 和 <span class="math notranslate nohighlight">\(C\)</span> ），即任务组件中与感知组件无直接关系的变量，被表示为 <span class="math notranslate nohighlight">\(Ω_t\)</span> 。</p>
 </div>
-<div class="section" id="id12">
-<h4>（3）面向有监督和无监督的生成式过程<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>（3）面向有监督和无监督的生成式过程<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <p>如果两个组件之间的边指向 <span class="math notranslate nohighlight">\(Ω_h\)</span>，则依据概率图模型理论，所有变量的联合概率分布可以写为：</p>
 <div class="math notranslate nohighlight">
 \[
@@ -712,8 +722,8 @@ p\left(\Omega_{p}, \Omega_{h}, \Omega_{t}\right)=p\left(\Omega_{t}\right) p\left
 <div><p>注：上述联合概率分布基于概率图模型的推断计算。细节参见概率图模型相关理论和书籍。</p>
 </div></blockquote>
 </div>
-<div class="section" id="id13">
-<h4>（4）独立性要求<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>（4）独立性要求<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>铰链变量 <span class="math notranslate nohighlight">\(Ω_h\)</span> 和相关条件分布的引入大大简化了模型（特别是当 <span class="math notranslate nohighlight">\(Ω_h\)</span> 的入度或出度为 1 时），便于学习，并提供归纳偏差（有关目标函数的假设）以聚焦 <span class="math notranslate nohighlight">\(Ω_h\)</span> 内部的信息。</p>
 <p>请注意，铰链变量始终位于任务组件中；铰链变量 <span class="math notranslate nohighlight">\(Ω_h\)</span> 和感知组件之间的连接（如图 5 中的 <span class="math notranslate nohighlight">\(X_4→H\)</span> ）应该尽量独立，以方便感知组件实施并行计算。例如，<span class="math notranslate nohighlight">\(H\)</span> 中的每一行只与 <span class="math notranslate nohighlight">\(X_4\)</span> 中的一个对应行相关。虽然在 BDL 模型中这不是强制性的，但满足此要求将显著提高模型训练时的并行计算效率。</p>
 </div>
@@ -728,8 +738,8 @@ p\left(\Omega_{p}, \Omega_{h}, \Omega_{t}\right)=p\left(\Omega_{t}\right) p\left
 <p>显然在模型灵活性方面，<span class="math notranslate nohighlight">\(LV&gt;HV&gt;ZV\)</span>。正常情况下，如果适当地正则化，<code class="docutils literal notranslate"><span class="pre">LV</span> <span class="pre">模型</span></code> 的性能应当优于 <code class="docutils literal notranslate"><span class="pre">HV</span> <span class="pre">模型</span></code> ，而 <code class="docutils literal notranslate"><span class="pre">HV</span> <span class="pre">模型</span></code> 又优于 <code class="docutils literal notranslate"><span class="pre">ZV</span> <span class="pre">模型</span></code> 。表 1 中显示了不同 BDL 模型中 <span class="math notranslate nohighlight">\(\Omega_h\)</span> 的方差类型。</p>
 <p>请注意，尽管表中每种模型都有特定的铰链方差类型，但始终可以调整模型以设计出满足其他类型要求的模型。例如，虽然表中的 CDL 是 <code class="docutils literal notranslate"><span class="pre">HV</span> <span class="pre">模型</span></code>，但可以很容易地调整 CDL 中的 <span class="math notranslate nohighlight">\(p(Ω_h|Ω_p)\)</span> 来设计其对应的  ZV 和 LV 项。<code class="docutils literal notranslate"><span class="pre">[121]</span></code> 的作者比较了 <code class="docutils literal notranslate"><span class="pre">HV</span> <span class="pre">CDL</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ZV</span> <span class="pre">CDL</span></code> 的性能，发现前者要好得多，这意味着对两个组件之间的不确定性进行建模对性能至关重要。</p>
 </div>
-<div class="section" id="id14">
-<h4>（6）学习算法<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>（6）学习算法<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>由于 BDL 的性质，实用的学习算法需满足以下准则：</p>
 <ul class="simple">
 <li><p>准则 1：应当是在线算法，以便能够很好地扩展到大数据集；</p></li>
@@ -739,8 +749,8 @@ p\left(\Omega_{p}, \Omega_{h}, \Omega_{t}\right)=p\left(\Omega_{t}\right) p\left
 <p>准则 2 是必需的，因为在感知组件中通常有大量空闲参数。这意味着基于拉普拉斯近似的方法 <code class="docutils literal notranslate"><span class="pre">[72]</span></code>是不现实的，因为其涉及到海森矩阵中与自由参数数量成二次方关系的计算复杂度。</p>
 </div>
 </div>
-<div class="section" id="id15">
-<h3>4.3 感知组件<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>6.4.3 感知组件<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>理想情况下，感知组件应是贝叶斯（或概率）神经网络，以便与任务组件（任务组件天生是概率的）兼容，确保感知组件具备处理参数及输出不确定性的能力。</p>
 <p>正如 4.1 节提到的，贝叶斯神经网络的研究可以追溯到 20 世纪 90 年代 <code class="docutils literal notranslate"><span class="pre">[31，42，72，80]</span></code>。但当时的开创性工作由于缺乏可扩展性而没有被广泛采纳。为解决此问题，最近有了一些发展，例如 <code class="docutils literal notranslate"><span class="pre">受限玻尔兹曼机</span> <span class="pre">(RBM)</span>&#160; <span class="pre">[40，41]</span></code>、<code class="docutils literal notranslate"><span class="pre">概率广义堆叠去噪自动编码器</span> <span class="pre">(pSDAE)[118,121]</span></code>、<code class="docutils literal notranslate"><span class="pre">变分自编码器</span> <span class="pre">(VAE)[58]</span></code>、<code class="docutils literal notranslate"><span class="pre">概率反向传播</span> <span class="pre">(PBP)[39]</span></code>、<code class="docutils literal notranslate"><span class="pre">贝叶斯后向传播</span> <span class="pre">(BBB)[9]</span></code> 、<code class="docutils literal notranslate"><span class="pre">贝叶斯暗知识</span> <span class="pre">(BDK)[2]</span></code> 和 <code class="docutils literal notranslate"><span class="pre">自然参数网络</span> <span class="pre">(NPN)[119]</span></code>。</p>
 <p>最近，<code class="docutils literal notranslate"><span class="pre">生成性对抗性网络</span> <span class="pre">(GAN)[30]</span></code> 作为一种新的神经网络训练方案盛行，并在图像生成方面显示出生命力。随后，GAN 的贝叶斯公式（以及相关的理论结果）也被提出 <code class="docutils literal notranslate"><span class="pre">[30，37]</span></code> 。这些模型也是 BDL 框架感知组件的潜在构建块。</p>
@@ -762,7 +772,7 @@ p(\mathbf{v} \mid \mathbf{h})=\frac{\exp (-E(\mathbf{v}, \mathbf{h}))}{\sum_{\ma
 </div>
 <div class="section" id="psdae">
 <h4>（2）广义概率堆叠去噪自编码器（pSDAE）<a class="headerlink" href="#psdae" title="Permalink to this headline">¶</a></h4>
-<p>在第 2.2 节引入 SDAE 之后，如果假设净输入 <span class="math notranslate nohighlight">\(X_c\)</span> 和损坏输入 <span class="math notranslate nohighlight">\(X_0\)</span> 均为观测变量，类似于 <code class="docutils literal notranslate"><span class="pre">[4，5，13，72]</span></code>，可以定义概率堆叠去噪自编码器（pSDAE）的生成过程：</p>
+<p>在第 6.2.2 节引入 SDAE 之后，如果假设净输入 <span class="math notranslate nohighlight">\(X_c\)</span> 和损坏输入 <span class="math notranslate nohighlight">\(X_0\)</span> 均为观测变量，类似于 <code class="docutils literal notranslate"><span class="pre">[4，5，13，72]</span></code>，可以定义概率堆叠去噪自编码器（pSDAE）的生成过程：</p>
 <p>(1) 对于 SDAE 网络的 每一层  <span class="math notranslate nohighlight">\(l\)</span></p>
 <p>对于权重矩阵 <span class="math notranslate nohighlight">\(W_l\)</span> 中的每一列 <span class="math notranslate nohighlight">\(n\)</span> ，抽取 <span class="math notranslate nohighlight">\(\mathbf{W}_{l,n} \sim \mathcal{N}(0, \lambda_w^{-1} \mathbf{I}_{K_l})\)</span> 。</p>
 <p>抽取偏差向量 <span class="math notranslate nohighlight">\(\mathbf{b}_{l} \sim \mathcal{N}\left(0, \lambda_{w}^{-1} \mathbf{I}_{K_{l}}\right)\)</span>。</p>
@@ -803,8 +813,8 @@ s_{\theta}\left(x_{m}, x_{s}\right)=D[w x]=x_{s} w_{s}+x_{s} w_{m}^{2}+x_{m}^{2}
 <p>继 NPN 之后，提出了一个轻量级版本 <code class="docutils literal notranslate"><span class="pre">[26]</span></code>，以加快训练和推断过程。另一个变体 <code class="docutils literal notranslate"><span class="pre">MaxNPN[100]</span></code> 扩展了 NPN 以处理最大池化层和类别层。<code class="docutils literal notranslate"><span class="pre">ConvNPN[87]</span></code> 启用 NPN 中的卷积层。在模型量化和压缩方面，<code class="docutils literal notranslate"><span class="pre">BinaryNPN[107]</span></code> 也被提出为 NPN 的二进制版本，以获得更好的效率。</p>
 </div>
 </div>
-<div class="section" id="id16">
-<h3>4.4 任务组件<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>6.4.4 任务组件<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>本小节将介绍不同形式的任务组件。任务组件的目的是将概率先验知识合并到 BDL 模型中。这样的知识可以用 PGM 自然地表示出来。具体地说，它可以是典型的（或浅层）贝叶斯网络 <code class="docutils literal notranslate"><span class="pre">[5，54]</span></code> 、<code class="docutils literal notranslate"><span class="pre">双向推断网络</span> <span class="pre">[117]</span></code> 或 <code class="docutils literal notranslate"><span class="pre">随机过程</span> <span class="pre">[94]</span></code> 。</p>
 <div class="section" id="bayesian-network-bn">
 <h4>（1） 贝叶斯网络（Bayesian Network，BN）<a class="headerlink" href="#bayesian-network-bn" title="Permalink to this headline">¶</a></h4>
@@ -844,22 +854,22 @@ p\left(v_{1}, v_{2}, v_{3} \mid X\right)=p\left(v_{1} \mid X\right) p\left(v_{2}
 </div>
 </div>
 <div class="section" id="bdl">
-<h2>5 具体的 BDL 模型和应用<a class="headerlink" href="#bdl" title="Permalink to this headline">¶</a></h2>
+<h2>6.5 具体的 BDL 模型和应用<a class="headerlink" href="#bdl" title="Permalink to this headline">¶</a></h2>
 <p>在本节中，我们讨论 BDL 框架如何促进监督学习、非监督学习和表示学习。具体地说，我们在推荐系统、主题模型、控制等领域使用了实例。</p>
-<div class="section" id="id17">
-<h3>5.1 推荐系统中的有监督贝叶斯深度学习<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>6.5.1 推荐系统中的有监督贝叶斯深度学习<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>尽管深度学习在自然语言处理和计算机视觉领域得到了成功的应用，但在 BDL 出现之前，很少有人尝试开发用于协同过滤 (CF) 的深度学习模型。[98] 使用受限 Boltzmann 机器而不是传统的矩阵分解公式来执行 CF，[28] 通过合并用户-用户和项目-项目相关性扩展了这项工作。虽然这些方法同时涉及深度学习和内容过滤，但它们实际上属于基于深度学习的方法，因为它们忽略了用户或项目的内容信息，而这对于准确的推荐是至关重要的。[95] 在深层网络的最后一层权层使用低秩矩阵分解，可以显著减少模型参数的数量，加快训练速度，但它是用于分类而不是推荐任务。在音乐推荐方面，[84,123] 直接使用传统的 CNN 或深度信念网络 (DBN) 来辅助内容信息的表示学习，但其模型的深度学习部分是确定性的，没有对噪声建模，因此鲁棒性较差。这些模型主要通过松散耦合的方法实现性能提升，而没有利用内容信息和评分之间的交互。此外，CNN 直接与评级矩阵联系在一起，这意味着当评级稀少时，由于严重的过度拟合，模型的表现将很差。</p>
 <div class="section" id="collaborative-deep-learning">
-<h4>5.1.1 协作深度学习（Collaborative Deep Learning）<a class="headerlink" href="#collaborative-deep-learning" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.1.1 协作深度学习（Collaborative Deep Learning）<a class="headerlink" href="#collaborative-deep-learning" title="Permalink to this headline">¶</a></h4>
 <p>为了解决上述问题，文献 [121] 提出了一种称为协同深度学习 (CDL) 的层次化贝叶斯模型，作为一种新的紧密耦合的推荐方法。基于 SDAE 的贝叶斯公式，CDL 紧密耦合内容信息的深度表示学习和评级（反馈）矩阵的协作过滤，允许两者之间的双向交互。从 BDL 的角度来看，作为感知组件的概率 SDAE 与作为特定于任务的组件的概率图形模型紧密耦合。实验表明，CDL 在现有技术的基础上有了很大的提高。</p>
 <p>在下面的文本中，我们将从介绍 CDL 时使用的符号开始。之后，我们将回顾 CDL 的设计和学习。</p>
-<div class="section" id="id18">
-<h5>（1）记法和问题表述：<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id17">
+<h5>（1）记法和问题表述：<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h5>
 <p>与 [112] 中的工作类似，CDL 中考虑的推荐任务将隐式反馈 [50] 作为训练和测试数据。J 个项目（文章或电影）的整个集合由 J-x-B 矩阵 Xc 表示，其中行 j 是基于大小 B 的词汇表的项目 j 的词袋向量 Xc，j∗。对于 i 个用户，我们定义 i-by-J 二进制评级矩阵 R=[Ri j]i×j。例如，在数据集中，如果用户 i 在他或她的个人库中有文章 j，则 Citeulike-a[112,115,121]Ri j=1，否则 Ri j=0。在给定 R 中的部分评级和内容信息 XC 的情况下，问题在于预测 R 中的其他评级。请注意，尽管 CDL 在其当前的 FROM 中侧重于电影推荐（其中电影情节被视为内容信息）和文章推荐（如本节中的 [112])，但它足够通用以处理其他推荐任务（例如，标签推荐）。</p>
 <p>矩阵 Xc 起到 SDAE 的干净输入的作用，而被噪声破坏的矩阵（也是 J 乘 B 矩阵）由 X0 表示。SDAE 的 Layer1 的输出由 Xl 表示，Xl 是 J×Kl 矩阵。与 XC 类似，XL 的第 j 行由 XL，j∗表示。Wland 分别表示层 l、W1 的权重矩阵和偏置向量，∗n 表示 WL 的第 n 列，L 表示层数。为方便起见，我们使用 W+表示所有层的权重矩阵和偏差的集合。注意，L/2 层 SDAE 对应于 L 层网络。</p>
 </div>
-<div class="section" id="id19">
-<h5>（2）协作式深度学习：<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id18">
+<h5>（2）协作式深度学习：<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
 <p>使用 4.3.2 提到的 Probabilistic SDAE，CDL 模型的生成过程如下：</p>
 <p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxt6vaxs3GUnAG9kwGiawEWHYoA8rdI5pULhXhJUk7HMXUzefunx2NCMyg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
 <p>这里，λw、λn、λu、λs 和λVe 是超参数，Ci j 是类似于 CTr[112] 的置信度参数（如果 Ri j=1，Ci j=a，否则 Ci j=b)。注意，中间层 XL/2 充当收视率和内容信息之间的桥梁。该中间层以及潜在偏移量ϵj 是使 CDL 能够同时学习有效的特征表示并捕捉项目（和用户）之间的相似性和（隐式）关系的关键。与广义 SDAE 类似，为了提高计算效率，我们也可以把λ取为无穷大。</p>
@@ -868,8 +878,8 @@ p\left(v_{1}, v_{2}, v_{3} \mid X\right)=p\left(v_{1} \mid X\right) p\left(v_{2}
 <p><img alt="" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210528091403_5b.webp" /></p>
 <p>图 7. 左边是 CDL 的图形模型。虚线矩形内的零件表示 SDAE。给出了一个 L=2 的 SDAE 实例。右边是退化的 CDL 的图形模型。虚线矩形内的部分表示 SDAE 的编码器。右侧显示了 L=2 的 SDAE 示例。注意，虽然 L 仍然是 2，但是 SDAE 的解码器消失了。为了避免混乱，我们省略了图形模型中除 x0 和 xl/2 之外的所有变量 xl。</p>
 </div>
-<div class="section" id="id20">
-<h5>（3）学习<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id19">
+<h5>（3）学习<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
 <p>基于上述 CDL 模型，所有参数都可以看作随机变量，从而可以应用马尔可夫链蒙特卡罗 (MCMC) 或变分推断等完全贝叶斯方法 [55]。然而，这样的处理通常会导致很高的计算成本。因此，CDL 使用 EM 风格的算法来获得 MAP 估计，如 [112] 中所示。</p>
 <p>具体地说，在给定λu、λv、λw、λs 和λn 的情况下，最大化后验概率等同于最大化 U、V、{xl}、xc、{wl}、{bl}和 R 的联合对数似然：
 $<span class="math notranslate nohighlight">\(
@@ -915,14 +925,14 @@ $<span class="math notranslate nohighlight">\(
 <p>在接下来的小节中，我们将从不同的角度提供 CDL 的几个扩展。</p>
 </div>
 </div>
-<div class="section" id="id21">
-<h4>5.1.2 贝叶斯协作式深度学习<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id20">
+<h4>6.5.1.2 贝叶斯协作式深度学习<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
 <p>除了 MAP 估计外，文献 [121] 中还提出了一种基于抽样的 CDL 贝叶斯处理算法。事实证明，该算法是 BP 的贝叶斯和广义版本。我们将关键的条件密度列出如下：</p>
 <p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210528093005_72.webp" /></p>
 <p>有趣的是，如果λ趋于无穷大，并且使用自适应拒绝 Metropolis 抽样（涉及使用目标函数的梯度来近似建议分布），则 W+的抽样被证明是 BP 的贝叶斯广义版本。具体地说，如图 8（右）所示，在获得损失函数在一点（左侧的红色虚线）的梯度后，将在该线下的区域中绘制下一个样本，这相当于 BP 的概率版本。如果样本在损失函数的曲线之上，则会添加一条新的切线（右侧的黑色虚线），以更好地近似与损失函数对应的分布。之后，将从这两条线下的区域抽取样本。在采样过程中，该算法除了使用梯度 (MAP) 搜索局部最优值外，还考虑了方差。这就是 [121] 中称之为贝叶斯广义反向传播的原因。</p>
 </div>
 <div class="section" id="marginalized-collaborative-deep-learning">
-<h4>5.1.3 边缘化协作深度学习（Marginalized Collaborative Deep Learning）<a class="headerlink" href="#marginalized-collaborative-deep-learning" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.1.3 边缘化协作深度学习（Marginalized Collaborative Deep Learning）<a class="headerlink" href="#marginalized-collaborative-deep-learning" title="Permalink to this headline">¶</a></h4>
 <p>在 SDAE 中，损坏的输入通过编码器和解码器恢复干净的输入。通常，不同的训练阶段使用不同的损坏版本作为输入。因此，通常情况下，SDAE 需要经历足够多的培训阶段，才能看到足够多的输入损坏版本。边缘化的 SDAE(MSDAE)[14] 试图通过将被破坏的输入边缘化并直接获得封闭形式的解决方案来避免这种情况。从这个意义上说，mSDAE 比 SDAE 的计算效率更高。</p>
 <p>正如在 [66] 中提到的，使用 mSDAE 而不是贝叶斯 SDAE 可能会导致更有效的学习算法。例如，在 [66] 中，使用单层 mSDAE 时的目标可以写成：
 $<span class="math notranslate nohighlight">\(
@@ -932,7 +942,7 @@ $<span class="math notranslate nohighlight">\(
 <p>W1 的解将是 W1=E(S1)E(Q1)−1，其中 s1=xtc，j∗ex0，j∗+λv 2pt 1Vxc 和 q1=xt c，j∗ex0，j∗+λv 2xt cxc。上述方程中的期望值的求解器在 [14] 中提供。请注意，这是一个线性和单层情况，可以使用与 [13，14] 中相同的技术将其推广到非线性和多层情况。边缘化 CDL 的感知变量Ωp={X0，Xc，W1}，铰链变量Ωh={V}，任务变量Ωt={P1，R，U}。</p>
 </div>
 <div class="section" id="collaborative-deep-ranking">
-<h4>5.1.4  协作深度排名（Collaborative Deep Ranking）<a class="headerlink" href="#collaborative-deep-ranking" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.1.4  协作深度排名（Collaborative Deep Ranking）<a class="headerlink" href="#collaborative-deep-ranking" title="Permalink to this headline">¶</a></h4>
 <p>CDL 采用协作过滤设置来直接对评级进行建模。当然，人们可以设计一个类似的模型，更多地关注项目之间的排名，而不是确切的评级 [131]。相应的生成过程如下：</p>
 <p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210528093316_19.webp" /></p>
 <p>在上述生成过程之后，公式 (9) 中的对数似然变为：</p>
@@ -940,35 +950,35 @@ $<span class="math notranslate nohighlight">\(
 <p>类似的算法可以用来学习 CDR 中的参数。如 [131] 所述，使用排名目标可以显著提高推荐性能。根据第 4.2 节中的定义，CDR 的感知变量Ωp={{wl}，{bl}，{xl}，xc}，铰链变量Ωh={V}，以及任务变量Ωt={U，∆}。</p>
 </div>
 <div class="section" id="collaborative-variational-autoencoders">
-<h4>5.1.5 协作式变分自动编码器（Collaborative Variational Autoencoders）<a class="headerlink" href="#collaborative-variational-autoencoders" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.1.5 协作式变分自动编码器（Collaborative Variational Autoencoders）<a class="headerlink" href="#collaborative-variational-autoencoders" title="Permalink to this headline">¶</a></h4>
 <p>在 CDL 中，感知组件采用概率 SDAE 的形式。当然，也可以用 V AE（在第 4.3.3 节中介绍）替换 CDL 中的概率 SDAE，就像在协作变分自动编码器 (CV AE)[68] 中所做的那样。具体地说，具有表示为 (fµ(·)，fs(·)) 的推理网络（编码器）和表示为д(·) 的生成网络（解码器）的 CV AE 采取以下生成过程：</p>
 <p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtNSI0tFjUxFUtOvbyMX7eE4lzmpt5uibwBbfjsTwJ7QtS2bFGz0tMrKw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
 <p>类似于 cdl，λn、λu、λs 和λV1 是超参数，Ci j 是置信度参数（如果 Ri j=1，则 Ci j=a，否则 Ci j=b)。在 [68] 之后，可以导出类似于公式 (6) 的 ELBO，使用它可以使用 BP 和重新参数化技巧来训练模型的参数。</p>
 <p>从 CDL 到 CV AE 的演变展示了 BDL 框架在组件特定形式方面的灵活性。还值得注意的是，感知组件可以是概率 SDAE[122] 或 VAE[17，68] 的递归版本以处理原始顺序数据，而特定于任务的组件可以采取更复杂的形式以适应更复杂的推荐场景（例如，跨域推荐）。</p>
 </div>
-<div class="section" id="id22">
-<h4>5.1.6 讨论<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id21">
+<h4>6.5.1.6 讨论<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
 <p>推荐系统是 BDL 的典型用例，因为它们通常既需要彻底理解高维信号（例如，文本和图像），又需要对用户/项目/评级之间的条件依赖关系进行原则性推理。</p>
 <p>在这一点上，CDL 作为 BDL 的实例化，是第一个弥合现有深度学习模型和推荐系统之间差距的分层贝叶斯模型。通过协作进行深度学习，CDL 及其变体可以同时从高维内容中提取有效的深层特征表示，并捕捉项目（和用户）之间的相似性和隐含关系。学习的表示还可以用于除推荐之外的任务。与以前的深度学习模型使用简单的目标（如分类 [56] 和重构 [111]) 不同，基于 CDL 的模型在概率框架中使用 CF 作为更复杂的目标。</p>
 <p>如第 1 节所述，两个组件之间的信息交换对 BDL 的性能至关重要。在上述基于认知学习的模型中，通过假设连接铰链变量和感知成分中的变量的高斯分布来实现交换（在认知学习的生成过程中绘制铰链变量 Vj∼N(Xt L2，j∗，λ−1 Vik)，其中 XL2 是感知变量），这在计算上是简单而有效的。根据 4.2 节的定义，在表 1 中的 8 个基于 CDL 的模型中，其中 6 个是 HV 模型，其余是 LV 模型。由于已经证实 HV CDL 的性能明显优于 ZV 对应车型 [121]，我们可以预期 6 款 HV 车型的 LV 对应车型会带来额外的性能提升。</p>
 <p>除了有效的信息交换，模型设计还满足 4.2 节中讨论的铰链变量分布的独立性要求，因此易于并行化。在稍后将介绍的一些模型中，我们将看到支持 BDL 的两个组件之间高效且独立的信息交换的替代设计。</p>
-<p>请注意，上述基于 BDL 的模型使用典型的静态贝叶斯网络作为其特定于任务的组件。虽然这些对于大多数用例来说通常是足够的，但是特定于任务的组件也可以采用深度贝叶斯网络的形式，例如 BIN[117]。这允许模型在必要时处理用户和项目之间的高度非线性交互。人们还可以使用随机过程（或者一般的动态贝叶斯网络）来明确地对用户购买或点击行为进行建模。例如，将用户购买食品杂货的过程建模为泊松过程是很自然的。就感知分量而言，还可以用它们的卷积或递归对应物替换上面的 pSDAE、mSDAE 或 V AE（参见第 2.3 节和第 2.4 节），如分别在协作知识库嵌入 (CKE)[132] 或协作递归自动编码器 (CRAE)[122] 中所做的那样。注意，为了使卷积或递归感知分量与特定于任务的分量（其本质上是概率的）兼容，理想情况下，还需要制定 CNN 或 RNN 的概率版本。读者可参考 [132] 和 [122] 了解更多详细信息。</p>
+<p>请注意，上述基于 BDL 的模型使用典型的静态贝叶斯网络作为其特定于任务的组件。虽然这些对于大多数用例来说通常是足够的，但是特定于任务的组件也可以采用深度贝叶斯网络的形式，例如 BIN[117]。这允许模型在必要时处理用户和项目之间的高度非线性交互。人们还可以使用随机过程（或者一般的动态贝叶斯网络）来明确地对用户购买或点击行为进行建模。例如，将用户购买食品杂货的过程建模为泊松过程是很自然的。就感知分量而言，还可以用它们的卷积或递归对应物替换上面的 pSDAE、mSDAE 或 V AE（参见第 6.2.3 节和第 6.2.4 节），如分别在协作知识库嵌入 (CKE)[132] 或协作递归自动编码器 (CRAE)[122] 中所做的那样。注意，为了使卷积或递归感知分量与特定于任务的分量（其本质上是概率的）兼容，理想情况下，还需要制定 CNN 或 RNN 的概率版本。读者可参考 [132] 和 [122] 了解更多详细信息。</p>
 <p>总而言之，本小节以推荐系统为例，讨论了 BDL 在有监督的借贷方面的应用。下面的第 5.2 节将介绍 BDL 在无监督学习方面的应用。</p>
 </div>
 </div>
-<div class="section" id="id23">
-<h3>5.2 主题模型中的无监督贝叶斯深度学习<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>6.5.2 主题模型中的无监督贝叶斯深度学习<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <p>为了演示 BDL 如何也可以应用于无监督学习，我们在本节中回顾了一些基于 BDL 的主题模型的示例。这些模型结合了 PGM（自然地结合了变量之间的概率关系）和 NN（高效地学习深层表示）的优点，导致了显著的性能提升。在无监督学习的情况下，特定于任务的组件的“任务”是描述/表征 BDL 模型中的条件依赖关系，从而提高其可解释性和类型化。这与监督学习设置不同，在监督学习设置中，“任务”只是简单地“匹配目标”。</p>
 <div class="section" id="relational-stacked-denoising-autoencoders-as-topic-models">
-<h4>5.2.1 作为主题模型的相关堆叠去噪自动编码器（Relational Stacked Denoising Autoencoders as Topic Models）<a class="headerlink" href="#relational-stacked-denoising-autoencoders-as-topic-models" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.2.1 作为主题模型的相关堆叠去噪自动编码器（Relational Stacked Denoising Autoencoders as Topic Models）<a class="headerlink" href="#relational-stacked-denoising-autoencoders-as-topic-models" title="Permalink to this headline">¶</a></h4>
 <p>作为一种基于 BDL 的主题模型，关系堆叠去噪自动编码器 (RSDAE) 本质上试图学习主题的层次结构（或潜在因素），同时在无监督学习环境下实施关系（图）约束。</p>
-<div class="section" id="id24">
-<h5>（1）问题陈述<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id23">
+<h5>（1）问题陈述<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h5>
 <p>假设我们有一组项（文章或电影）Xc，其中 Xtc，j∗∈Rb 表示项 j 的内容（属性）。此外，我们用 Ik 表示 K 维恒等矩阵，S=[S1，S2，···，Sj] 表示关系潜在矩阵，其中 sj 表示项 j 的关系属性。</p>
 <p>从 SDAE 的角度来看，J-x-B 矩阵 Xcreen 表示对 SDAE 的干净输入，并且相同大小的噪声损坏的矩阵由 X0 表示。此外，我们用 XL 表示 SDAE 的层 l 的输出，即 J×Kl 矩阵。XLi 的第 j 行由 XL 表示，j∗，Wland blare 层 l，WL 的权重矩阵和偏置向量，∗n 表示 WL 的第 n 列，L 是层数。作为速记，我们将所有层中的权重矩阵和偏差的集合称为 W+。注意，L/2 层 SDAE 对应于 L 层网络。</p>
 </div>
-<div class="section" id="id25">
-<h5>（2）模型构建<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id24">
+<h5>（2）模型构建<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h5>
 <p>在 RSDAE 中，感知组件采用概率 SDAE（在 4.3.2 节中介绍）的形式作为构建块。在更高的层次上，RSDAE 被描述为一种新的概率模型，它无缝地集成了潜在因素的层次结构和可用的关系信息。这样，模型可以同时从内容信息和项目之间的关系中学习特征表示 [118]。RSDAE 的图形模型如图 9 所示，生成过程如下所示：</p>
 <p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/spatialPresent_20210528094119_77.webp" /></p>
 <p>图 9.L=4 的 RSDAE 图形模型。为防止混乱，此处省略了λ。</p>
@@ -983,23 +993,23 @@ p(\mathrm{~S})=\mathcal{N}_{K, J}\left(0, \mathrm{I}_{K} \otimes\left(\lambda_{l
 <p>其中 xl，j∗=σ(xl−1，j∗wl+bl)。注意，第一项−λl 2tr(Slast) 对应于公式 (12) 中的矩阵变量分布中的 logp(S)。此外，通过简单的操作，我们得到 tr(Slast)=K˝k=1St k∗Lask∗，其中 Sk∗表示 S 的第 k 行。如我们所见，如果项 j 和项 j‘相关联（即，aj j’=1)，则最大化−λl 2tr(STLas) 等同于使 sj 更接近 Sj‘。</p>
 <p>在 RSDAE 中，感知变量 <span class="math notranslate nohighlight">\(Ωp={{xl}，xc，{wl}，{bl}}\)</span> ，铰链变量 <span class="math notranslate nohighlight">\(Ωh={S}\)</span>，以及任务变量<span class="math notranslate nohighlight">\(Ωt={A}\)</span> 。</p>
 </div>
-<div class="section" id="id26">
-<h5>(3) 学习与推断<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id25">
+<h5>(3) 学习与推断<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h5>
 <p>[118] 提供了一种 EM 式的 MAP 估计算法。下面我们将回顾一些关键步骤。</p>
 <p>对于 E 步，挑战在于关系潜在矩阵 S 的推断。我们首先固定 S 的所有行，除了第 k 行 Sk∗，然后更新 Sk∗。具体地说，我们取 L 相对于 Sk∗的梯度，将其设置为 0，得到以下线性系统：</p>
 <p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtxeLGqR9rlPMowhDfzq8QDHBJ8zbcaC3VOJPTz86GbR9uib2p9KUacdQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
 </div>
 </div>
 <div class="section" id="sigmoid-deep-poisson-factor-analysis-with-sigmoid-belief-networks">
-<h4>5.2.2 基于 Sigmoid 信念网络的深度泊松因子分析（Deep Poisson Factor Analysis with Sigmoid Belief Networks）<a class="headerlink" href="#sigmoid-deep-poisson-factor-analysis-with-sigmoid-belief-networks" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.2.2 基于 Sigmoid 信念网络的深度泊松因子分析（Deep Poisson Factor Analysis with Sigmoid Belief Networks）<a class="headerlink" href="#sigmoid-deep-poisson-factor-analysis-with-sigmoid-belief-networks" title="Permalink to this headline">¶</a></h4>
 <p>支持非负整数的泊松分布被认为是建立计数模型的自然选择。因此，希望将其用作主题模型的构建块，主题模型通常对字数统计感兴趣 [8]。基于这一动机，[136] 提出了一种通过泊松分布进行潜在非负矩阵分解的模型，称为泊松因子分析 (PFA)。</p>
-<div class="section" id="id27">
-<h5>（1）泊松因子分析<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id26">
+<h5>（1）泊松因子分析<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h5>
 <p>PFA 假设一个离散的 P 乘 N 矩阵 X，其中包含词汇大小为 P[24,136] 的 N 个文档的字数计数。简而言之，PFA 可以使用等式 X∼Pois(Φ(Θ◦H) 来描述，其中Φ（大小为 P×K，其中 K 是主题的数量）表示因子分析中的因子加载矩阵，第 k 列ϕk 编码主题 k 中的每个词的重要性。K×N 矩阵Θ是因子得分矩阵，第 n 列θn 包含文档 n 的主题比例。K×N 矩阵 H 是具有第 n 列 hn 定义的潜在二进制矩阵。</p>
 <p>不同的先验对应不同的模型。例如，具有全一矩阵 H 的ϕk 和θn 上的 Dirichlet 先验将恢复 Lda[8]，而 Hn 上的β-Bernoulli 先验将导致 [135] 中的 NB-FTM 模型。在 [24] 中，将基于 <code class="docutils literal notranslate"><span class="pre">Sigmoid</span> <span class="pre">Believe</span> <span class="pre">Networks(SBN)（一种二进制隐含单元的</span> <span class="pre">MLP</span> <span class="pre">变体）</span></code> [79] 的深层先验施加到 HN 上，形成用于主题建模的深层 PFA 模型。</p>
 </div>
-<div class="section" id="id28">
-<h5>（2）深泊松因子分析<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id27">
+<h5>（2）深泊松因子分析<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h5>
 <p>在深度 PFA 模型 [24] 中，生成过程可以概括如下：
 $<span class="math notranslate nohighlight">\(
 \phi_{k} \sim \operatorname{Dir}\left(a_{\phi}, \ldots, a_{\phi}\right), \quad \theta_{k n} \sim \operatorname{Gamma}\left(r_{k}, \frac{p_{n}}{1-p_{n}}\right), \quad r_{k} \sim \operatorname{Gamma}\left(\gamma_{0}, \frac{1}{c_{0}}\right), \quad \gamma_{0} \sim \operatorname{Gamma}\left(e_{0}, \frac{1}{f_{0}}\right) 
@@ -1011,8 +1021,8 @@ h_{k_{L} n}^{(L)} \sim \operatorname{Ber}\left(\sigma\left(b_{k_{L}}^{(L)}\right
 <p>其中 L 是 SBN 中的层数，其对应于公式 (15)。Xpnk 是来自文档 n 中的主题 k 的单词计数。</p>
 <p>在该模型中，感知变量 <span class="math notranslate nohighlight">\(Ωp={{H(L)}，{wl}，{bl}}\)</span> ，铰链变量 <span class="math notranslate nohighlight">\(Ωh={X}\)</span> ，任务变量 <span class="math notranslate nohighlight">\(Ωt={{ϕk}， {rk} ，Θ ，γ0}\)</span> 。W1 是包含 w(L)kland 列的权重矩阵，blis 是包含 B(L)klin 方程 (15) 的条目的偏差向量。</p>
 </div>
-<div class="section" id="id29">
-<h5>（3）使用贝叶斯条件密度滤波进行学习<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id28">
+<h5>（3）使用贝叶斯条件密度滤波进行学习<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h5>
 <p>深度 PFA 的贝叶斯处理需要高效的学习算法。[24] 提出使用贝叶斯条件密度滤波的网络版来学习全局参数Ψд=({ϕk}，{rk}，γ0，{wl}，{bl}) 和局部变量Ψl=(Θ，{H(L)})。用于 Gibbs 更新的关键条件密度如下：
 $<span class="math notranslate nohighlight">\(
 \begin{array}{ll}x_{p n k} \mid-\sim \operatorname{Multi}\left(x_{p n} ; \zeta_{p n 1}, \ldots, \zeta_{p n K}\right), &amp; \phi_{k} \mid-\sim \operatorname{Dir}\left(a_{\phi}+x_{1 \cdot k}, \ldots, a_{\phi}+x_{P \cdot k}\right), \\ \theta_{k n} \mid-\sim \operatorname{Gamma}\left(r_{k} h_{k n}^{(1)}+x_{n k}, p_{n}\right), &amp; h_{k n}^{(1)} \mid-\sim \delta\left(x_{\cdot n k}=0\right) \operatorname{Ber}\left(\frac{\tilde{\pi}_{k n}}{\pi_{k n}+\left(1-\pi_{k n}\right)}\right)+\delta\left(x_{n k}&gt;0\right),\end{array}
@@ -1020,8 +1030,8 @@ $<span class="math notranslate nohighlight">\(
 where \)</span> \tilde{\pi}<em>{k n}=\pi</em>{k n}\left(1-p_{n}\right)^{r_{k}}, \pi_{k n}=\sigma\left(\left(\mathbf{w}<em>{k}^{(1)}\right)^{T} \mathbf{h}</em>{n}^{(2)}+c_{k}^{(1)}\right), x_{\cdot n k}=\sum_{p=1}^{P} x_{p n k}, x_{p \cdot k}=\sum_{n=1}^{N} x_{p n k} <span class="math notranslate nohighlight">\(, and \)</span> \zeta_{p n k} \propto \phi_{p k} \theta_{k n} . <span class="math notranslate nohighlight">\( For
 the learning of \)</span> h_{k_{n}}^{(l)} <span class="math notranslate nohighlight">\( where \)</span> l&gt;1 <span class="math notranslate nohighlight">\(, the same techniques as in \)</span> [25] $ can be used.</p>
 </div>
-<div class="section" id="id30">
-<h5>（4）使用随机梯度恒温器进行学习<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id29">
+<h5>（4）使用随机梯度恒温器进行学习<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h5>
 <p>另一种学习深度 PFA 的方法是通过随机梯度 Nóse-Hoover 恒温器 (SGNHT)，它更精确，更具可扩展性。SGNHT 是随机梯度朗之万动力学 (SGLD)[127] 和随机梯度哈密顿蒙特卡罗 (SGHMC)[15] 的推广。与前两种方法相比，SGNHT 在系统中引入了动量变量，帮助系统跳出局部最优。具体地说，可以使用以下随机微分方程 (SDE)：
 $<span class="math notranslate nohighlight">\(
 d \Psi_{g}=\mathrm{v} d t, \quad d \mathbf{v}=\tilde{f}\left(\Psi_{g}\right) d t-\xi \mathrm{v} d t+\sqrt{D} d \cdot W, \quad d \xi=\left(\frac{1}{M} \mathbf{v}^{T} \mathbf{v}-1\right) d t
@@ -1035,7 +1045,7 @@ d \Psi_{g}=\mathbf{v} d t, \quad d \mathbf{v}=\tilde{f}\left(\Psi_{g}\right) d t
 </div>
 </div>
 <div class="section" id="boltzmann">
-<h4>5.2.3 用受限 Boltzmann 机器进行深泊松因子分析<a class="headerlink" href="#boltzmann" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.2.3 用受限 Boltzmann 机器进行深泊松因子分析<a class="headerlink" href="#boltzmann" title="Permalink to this headline">¶</a></h4>
 <p>上面的深度 PFA 模型使用 SBN 作为感知组件。同样，可以使用 RBM <code class="docutils literal notranslate"><span class="pre">[41]</span></code>（在第 4.3.1 节中讨论）替换 SBN，以获得类似的性能。在 RBM 作为感知分量的情况下，公式 (15) 变成类似于公式 (4) 的条件分布，具有如下能量 [41]：</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1043,8 +1053,8 @@ E\left(\mathbf{h}_{n}^{(l)}, \mathbf{h}_{n}^{(l+1)}\right)=-\left(\mathbf{h}_{n}
 \]</div>
 <p>可以使用类似于具有 SBN 的深度 PFA 的学习算法。具体地说，采样过程将在 <span class="math notranslate nohighlight">\({{ϕk}，{γk}，γ0}\)</span>和 <span class="math notranslate nohighlight">\({{W(L)}，{c(L)}}\)</span> 之间交替。前者所涉及的条件密度与基于 SBN 的 DPFA 相似。后者是 RBM 的参数，可以使用对比散度算法进行更新。</p>
 </div>
-<div class="section" id="id31">
-<h4>5.2.4 讨论<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id30">
+<h4>6.5.2.4 讨论<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
 <p>在这里，我们选择主题模型作为示例应用程序，以演示 BDL 如何应用于无监督学习环境。在基于 BDL 的主题模型中，感知组件负责从文档推断主题层次，而特定于任务的组件负责对词生成、主题生成、词-主题关系或文档间关系进行建模。这两个组成部分之间的协同作用来自于它们之间的双向互动。一方面，关于主题层次的知识有助于准确地建模单词和主题，为学习文档间的关系提供有价值的信息。另一方面，准确地对词语、主题和文档间的关系进行建模，有助于发现文档的主题层次结构，学习文档的紧凑潜在因素。</p>
 <p>值得注意的是，一些基于 BDL 的主题模型中的信息交换机制与 5.1 节中的不同。例如，在基于 SBN 的 DPFA 模型中，交换是自然的，因为 SBN 的底层 H(1)，并且 H(1) 和Ωh={X}之间的关系都固有地是概率的，如公式 (15) 所示，这意味着不需要关于分布的额外假设。基于 SBN 的 DPFA 模型相当于假设 PFA 中的 H 是由以 SBN 底层为中心的狄拉克增量分布（具有零方差的高斯分布）H(1) 产生的。因此，根据第 4.2 节中的定义，表 1 中的两个 DPFA 模型都是 ZV 模型。值得注意的是，RSDAE 是一个 HV 模型（参见式 (11)，其中 S 是铰链变量，其他是感知变量），如果天真地将该模型修改为其 ZV 对应物，将违反 I.I.D.。第 4.2 节中的要求。</p>
 <p>与 5.1 节类似，上面的基于 BDL 的主题模型使用典型的静态贝叶斯网络作为特定于任务的组件。当然，您可以选择使用其他形式的特定于任务的组件。例如，用随机过程（例如，如 [113] 中的 Wiener 过程）替换 5.2.1 节中 RSDAE 的关系先验是直接的，以对主题层次随时间的演变进行建模。</p>
@@ -1058,22 +1068,22 @@ E\left(\mathbf{h}_{n}^{(l)}, \mathbf{h}_{n}^{(l+1)}\right)=-\left(\mathbf{h}_{n}
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id32">
-<h3>5.3 用于控制的贝叶斯深度表示学习<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id31">
+<h3>6.5.3 用于控制的贝叶斯深度表示学习<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
 <p>在 5.1 节和 5.2 节中，我们分别介绍了 BDL 如何应用于监督和非监督学习环境中。在本节中，我们将使用控件作为示例应用程序，讨论 BDL 如何在总体上帮助表示学习。</p>
 <p>正如第一节所提到的，贝叶斯深度学习也可以应用于从原始图像中控制非线性动力系统。考虑根据从摄像机接收的实时视频流来控制复杂的动态系统。解决这一控制问题的一种方法是通过两个任务之间的迭代，从原始图像中感知和基于动态模型的控制。感知任务可以使用多层简单的非线性变换（深度学习）来处理，而控制任务通常需要更复杂的模型，如隐马尔可夫模型和卡尔曼滤波器 [35，74]。为了在感知任务和控制任务之间实现有效的迭代过程，我们需要在它们之间进行双向信息交换。感知组件将是控制组件估计其状态的基础，另一方面，具有内置动态模型的控制组件将能够通过颠倒感知过程来预测未来轨迹（图像）[125]。</p>
 <p>作为这一方向的开创性工作之一，[125] 将这一任务作为表征学习问题来提出，并提出了一个称为嵌入到控制的模型，以考虑表征学习过程中的上述反馈回路。本质上，目标是学习 (1) 从原始图像/视频捕获语义信息和 (2) 在状态空间中保持局部线性以便于控制的表示。如果没有 BDL 框架，这是不可能的，因为感知组件保证第一个子目标，而特定于任务的组件保证第二个子目标。下面我们从随机最优控制的一些基础知识开始，然后介绍基于 BDL 的表示学习模型。</p>
 <div class="section" id="stochastic-optimal-control">
-<h4>5.3.1 随机最优控制（Stochastic Optimal Control）<a class="headerlink" href="#stochastic-optimal-control" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.3.1 随机最优控制（Stochastic Optimal Control）<a class="headerlink" href="#stochastic-optimal-control" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="bdl-bdl-based-representation-learning-for-control">
-<h4>5.3.2 基于 BDL 的控制表示学习（BDL-Based Representation Learning for Control）<a class="headerlink" href="#bdl-bdl-based-representation-learning-for-control" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.3.2 基于 BDL 的控制表示学习（BDL-Based Representation Learning for Control）<a class="headerlink" href="#bdl-bdl-based-representation-learning-for-control" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="learning-using-stochastic-gradient-variational-bayes">
-<h4>5.3.3 基于随机梯度变分贝叶斯的学习（Learning Using Stochastic Gradient Variational Bayes）<a class="headerlink" href="#learning-using-stochastic-gradient-variational-bayes" title="Permalink to this headline">¶</a></h4>
+<h4>6.5.3.3 基于随机梯度变分贝叶斯的学习（Learning Using Stochastic Gradient Variational Bayes）<a class="headerlink" href="#learning-using-stochastic-gradient-variational-bayes" title="Permalink to this headline">¶</a></h4>
 </div>
-<div class="section" id="id33">
-<h4>5.3.4 讨论<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id32">
+<h4>6.5.3.4 讨论<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
 <p>上面的示例模型演示了 BDL 学习满足特定领域需求的表示的能力。在控制的情况下，我们感兴趣的是学习表示法，这种表示法可以从原始输入中捕获语义信息，并在系统状态空间中保持局部线性。</p>
 <p>为了实现这一目标，基于 BDL 的模型由两个组件组成，一个是用于查看实时视频的感知组件，另一个是用于推断动态系统状态的控制（特定于任务的）组件。系统的推理基于来自感知组件的映射状态和映射置信度，并且反过来，控制组件发送的控制信号将影响感知组件接收的实况视频。只有当两个组件在统一的概率框架内交互工作时，模型才能充分发挥其潜力，获得最佳的控制性能。</p>
 <p>注意，上述基于动态链接库的控制模型使用了与 5.1 节和 5.2 节不同的信息交换机制：它遵循 VAE 机制，并使用神经网络分别参数化铰链变量的均值和协方差（例如，在编码模型中，铰链变量 zt∼N(µt，diag(σ2t))，其中µt 和σ是如公式 (19) 中参数化的感知变量），这比 5.1 节中的 cdl 和 cdr 等模型更灵活（具有更多自由参数。请注意，此基于 BDL 的控制模型是一个 LV 模型，如表 1 所示，由于假设协方差为对角线，因此该模型仍满足第 4.2 节中的独立性要求。</p>
@@ -1089,42 +1099,42 @@ E\left(\mathbf{h}_{n}^{(l)}, \mathbf{h}_{n}^{(l+1)}\right)=-\left(\mathbf{h}_{n}
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id34">
-<h3>5.4 其他贝叶斯深度学习的应用<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id33">
+<h3>6.5.4 其他贝叶斯深度学习的应用<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
 <p>BDL 在有监督学习、无监督学习和表征学习中得到了广泛的应用，如推荐系统、主题模型和控制。在本节中，我们将简要讨论其他几个可以从 BDL 中受益的应用程序。</p>
-<div class="section" id="id35">
-<h4>5.4.1 链接预测<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id34">
+<h4>6.5.4.1 链接预测<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
 <p>链接预测长期以来一直是网络分析中的核心问题，最近随着 BDL 和深度神经网络带来的新进展引起了人们越来越多的兴趣。[120] 提出了第一个基于 BDL 的链接预测模型，称为关系型深度学习 (RDL)。石墨 [32] 使用基于图形卷积网络 (GCN) 的感知组件扩展了 RDL[59]。[75] 结合经典的随机区块模型<code class="docutils literal notranslate"><span class="pre">[82]</span></code> （作为特定于任务的组件）和基于 GCN 的感知组件，在具有报告的最先进的链接预测性能的图中联合建模潜在的社区结构和链接生成。</p>
 </div>
-<div class="section" id="id36">
-<h4>5.4.2 自然语言处理<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id35">
+<h4>6.5.4.2 自然语言处理<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
 <p>除了第 5.2 节中讨论的主题建模之外，BDL 通常也对自然语言处理有用。例如，[77] 和 [69] 建立在 BDL 原则之上，以定义语言修订过程。这些模型通常包括基于 RNN 的感知组件和连接输入和输出序列的相对简单的特定于任务的组件。</p>
 </div>
-<div class="section" id="id37">
-<h4>5.4.3 计算机视觉<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id36">
+<h4>6.5.4.3 计算机视觉<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
 <p>在无监督学习环境中，BDL 对于计算机视觉特别强大。这是因为在 BDL 框架中，可以清楚地定义场景中的对象如何从诸如计数、位置和内容等各种因素生成的生成过程 [20]。感知组件通常采用概率神经网络的形式，可以专注于对原始图像的视觉特征进行建模，而特定于任务的组件处理图像中对象的各种属性之间的条件依赖关系。在这个方向上一个值得注意的工作是注意、推断、重复（空气）[20]，其中特定于任务的组件涉及关于每个对象的位置、规模、外观和存在（这与对象计数相关）的潜在变量。在 AIR 之后，提出了诸如 Fast Air[105] 和 Sequential Air[60] 等变体，以提高其计算效率和性能。除了无监督学习之外，BDL 还可用于监督学习任务，例如视频 [102] 中的动作识别，其中使用特定于任务的组件对不同动作之间的条件依赖性进行建模。</p>
 </div>
-<div class="section" id="id38">
-<h4>5.4.4 语音<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id37">
+<h4>6.5.4.4 语音<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
 <p>在语音识别和合成领域，研究人员也一直在采用 BDL 框架来提高准确性和可解释性。例如，分解后的分层 V AE[47，48] 将 V AE 与分解后的潜变量模型（表示为 PGM) 组合，以在非监督设置之后学习语音数据中的不同潜在因素。类似地，高斯混合 V AE[49] 使用高斯混合模型作为特定于任务的分量来实现从文本中可控的语音合成。在语音识别方面，递归泊松处理单元 (RPPU)[51] 改为采用不同形式的特定于任务的组件；它们使用随机过程（即，泊松过程）作为特定于任务的组件来对音素之间的边界进行建模，并且成功地实现了显著较低的语音识别的单词错误率 (WER)。同样，深度图随机过程 (DGP)[52] 作为另一种随机过程对图进行操作，对话语之间的关系结构进行建模，进一步提高了语音识别的性能。</p>
 </div>
-<div class="section" id="id39">
-<h4>5.4.5 时间序列预测<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id38">
+<h4>6.5.4.5 时间序列预测<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
 <p>时间序列预测是经济学、统计学和机器学习中一个长期存在的核心问题 [36]。它在多个领域有着广泛的应用。例如，对区域能源消费的准确预测可以为优化能源发电和配置提供有价值的指导。在电子商务中，零售商依靠需求预测来决定何时何地补充供应，从而避免商品脱销，并保证客户最快的送货速度。在新冠肺炎这样的大流行期间，获得对医院工作量和医疗供应需求的合理预测，以便在全国范围内最佳配置资源，这一点至关重要。不用说，一个理想的预测模型既需要对高维数据进行有效处理，也需要对不同的随机变量（无论是观测到的还是潜在的）进行复杂的建模。基于 BDL 的预测模型 [21，27，90,124] 通过基于 RNN 的感知组件和处理不同变量之间的条件依赖关系的特定任务组件来实现这些，显示出与以前的非 BDL 预测模型相比有实质性的改进。</p>
 </div>
-<div class="section" id="id40">
-<h4>5.4.6 医疗保健<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id39">
+<h4>6.5.4.6 医疗保健<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
 <p>在与医疗保健相关的应用 [91] 中，通常希望将人类知识融入模型中，以提高性能，或者更重要的是提高可解释性。当模型用于表达不足的数据时，确保模型的稳健性也是至关重要的。因此，BDL 提供了一个统一的框架来满足所有这些要求：(1) 由于其贝叶斯性质，它可以施加适当的先验，并执行贝叶斯模型平均，以提高鲁棒性；(2) 其特定于任务的组件可以在必要时自然地表示和纳入人类知识；(3) 模型的联合训练为其两个组件提供了可解释性。例如，[38] 提出了一个深度泊松因子模型，该模型本质上是层层叠加的泊松因子模型，用于分析电子病历。[110] 建立了具有实验特异性先验（知识）的 BDL 模型，以控制研究分析中的误发现率，并将其应用于抗癌药物筛选。[61] 开发了深度非线性状态空间模型，并展示了它们在处理电子健康记录和执行反事实推理方面的有效性。上述 BDL 模型中的特定于任务的组件全部采用典型贝叶斯网络的形式（如第 4.4.1 节所述）。相比之下，[117] 建议使用双向推理网络（本质上是一类深度贝叶斯网络）作为任务特定的组件（如第 4.4.2 节所述）。这实现了贝叶斯网络的每个条件分布中的深度非线性结构，并提高了诸如健康概况等应用的性能。</p>
 </div>
 </div>
 </div>
-<div class="section" id="id41">
-<h2>6 结论与展望<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id40">
+<h2>6.6 结论与展望<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h2>
 <p>BDL 致力于将 PGM 和 NN 的优点有机地结合在一个单一的原则性概率框架中。在这次调查中，我们发现了这一趋势，并回顾了最近的工作。BDL 模型由感知组件和特定于任务的组件组成；因此，我们分别研究了过去几年开发的这两个组件的不同实例，并详细讨论了不同的变体。为了学习 BDL 中的参数，已经提出了几种算法，从块坐标下降算法、贝叶斯条件密度滤波算法、随机梯度恒温器算法到随机梯度变分贝叶斯算法。</p>
 <p>BDL 既从 PGM 的成功中获得灵感，也从最近在深度学习方面有希望的进展中获得灵感和人气。由于现实世界中的许多任务既涉及对高维信号（如图像和视频）的有效感知，又涉及对随机变量的概率推理，因此 BDL 成为利用神经网络的感知能力和 PGM 的（条件和因果）推理能力的自然选择。在过去的几年里，BDL 已经在推荐系统、主题模型、随机最优控制、计算机视觉、自然语言处理、医疗保健等领域得到了成功的应用。在未来，我们可以期待对现有应用进行更深入的研究，以及对更复杂的任务进行更深入的探索。此外，高效神经网络 (BDL 的感知成分）的最新进展也为进一步提高 BDL 的可扩展性奠定了基础。</p>
 </div>
-<div class="section" id="id42">
-<h2>参考文献<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id41">
+<h2>参考文献<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
 <p>[1] Gediminas Adomavicius and YoungOk Kwon. Improving aggregate recommendation diversity using ranking-based techniques. TKDE, 24(5):896–911,
 2012.
 [2] Anoop Korattikara Balan, Vivek Rathod, Kevin P Murphy, and Max Welling. Bayesian dark knowledge. In NIPS, pages 3420–3428, 2015.
@@ -1291,8 +1301,8 @@ E\left(\mathbf{h}_{n}^{(l)}, \mathbf{h}_{n}^{(l+1)}\right)=-\left(\mathbf{h}_{n}
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="chapter1-3-EarlyMCMCInferenceInBNN.html" title="previous page">第 3 章 浅层贝叶斯神经网络的 MCMC 推断</a>
-    <a class='right-next' id="next-link" href="chapter2-2-VariationalInferenceInDeepBNN.html" title="next page">第 5 章 深层贝叶斯神经网络的变分推断</a>
+    <a class='left-prev' id="prev-link" href="chapter1-5-EarlyMCMCInferenceInBNN.html" title="previous page">第 5 章 浅层 BNN 的 MCMC 推断</a>
+    <a class='right-next' id="next-link" href="chapter2-2-VariationalInferenceInDeepBNN.html" title="next page">第 7 章 深层 BNN 的变分推断</a>
 
         </div>
         
