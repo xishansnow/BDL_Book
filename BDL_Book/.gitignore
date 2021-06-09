@@ -1,6 +1,5 @@
-# Jupyter-Book compiled
+# Jupyter-book  compiled
 _build/
-BDL_Book/_build/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
