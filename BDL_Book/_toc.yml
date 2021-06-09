@@ -5,15 +5,9 @@
   sections:
     - file: chapter1-1-BayesNeuralNetworks
     - file: chapter1-2-VariationalInference-Reference
-<<<<<<< HEAD
-    - file: chapter1-3-EarlyVariationalInferenceInBNN
-    - file: chapter1-4-MCMCInference-Reference
-    - file: chapter1-5-EarlyMCMCInferenceInBNN  
-=======
     - file: chapter1-3-EarlyVariationalInferenceInBNN    
     - file: chapter1-4-MCMCInference-Reference
     - file: chapter1-5-EarlyMCMCInferenceInBNN
->>>>>>> ff40a6b18d0ced02d0a6e90ac8cc3a483e2f46c8
 
 - part: '第二篇 深度贝叶斯神经网络'    
   sections:
