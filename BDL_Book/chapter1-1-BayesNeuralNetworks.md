@@ -1,4 +1,4 @@
-# 第1章 贝叶斯神经网络概述
+# 第1章 贝叶斯神经网络（BNN）概述
 
 【原文】Goan, E., & Fookes, C. (2020). Bayesian Neural Networks: An Introduction and Survey.  https://arxiv.org/abs/2006.12024
 
