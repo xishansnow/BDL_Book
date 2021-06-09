@@ -1,6 +1,5 @@
 # Jupyter-Book compiled
 _build/
-BDL_Book/_build/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -132,3 +131,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/_build/
+/.idea/
