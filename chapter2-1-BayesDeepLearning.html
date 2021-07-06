@@ -630,7 +630,7 @@
 <p>该部分提一下自编码器。这是一种能将输入编码为更紧凑表示的神经网络，同时能够将这种紧凑表示进行重建。这方面的资料也很多，这里主要说明一下 AE 的变种——SDAE（Stacked Denoising AutoEncoders）</p>
 <p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210519114919ac.webp" /></p>
 <p>SDAE 的结构如上图所示，和 AE 不同的是，<img alt="图片" src="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HW06nU1nJjPg9ads3EgQHxBNOj9yeFeGRt5MzLygT1d6ibicmUkg4IBuxiacXZxv9qSS/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /> 可以看做输入数据！<a class="reference external" href="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">图片</a> 加入噪声或者做了一些随机处理后的结果（比如可以把！<a class="reference external" href="https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">图片</a> 中的数据随机选 30%变为零）。所以 SDAE 做的就是试图把处理过的 corrupted data 恢复成 clean data。SDAE 可以转化为如下优化问题：</p>
-<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtz40YBzeNTG1YsMMwmH83fK6rY181d6bnERMXyAnCkQUiabW62D5ARtg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210706131623d3.webp" /></p>
 </div>
 <div class="section" id="cnn">
 <h3>6.2.3 卷积神经网络（CNN）<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h3>
@@ -670,7 +670,7 @@
 <div class="section" id="id6">
 <h2>6.4 贝叶斯深度学习<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>在这一节中，将列出一些最新的 BDL 模型，它们在推荐系统、主题模型、控制等方面都有应用。这些模型的摘要如表 1 所示。</p>
-<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtBGyjGq16RGgZzMJaXTVVt91FgJrMiboxQIbtqjCaukCwvRIjTZUe8BQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021070613164773.webp" /></p>
 <div class="section" id="id7">
 <h3>6.4.1 贝叶斯神经网络与贝叶斯深度学习简史<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>与 BDL 高度相关的主题是贝叶斯神经网络 ( BNN ) 或神经网络的贝叶斯处理。与其他贝叶斯处理类似， BNN 对神经网络的参数施加先验，目的是学习这些参数的后验分布。在推断阶段，后验分布被边缘化以产生最终预测（此处不知如何理解，感觉应当是基于后验做一次抽样）。此过程被称为贝叶斯模型平均（Bayesian Model Averaging） <code class="docutils literal notranslate"><span class="pre">[5]</span></code> ，可被视为学习了无限数量的神经网络（或神经网络的分布），而后通过集成来聚合结果。</p>
@@ -871,7 +871,7 @@ p\left(v_{1}, v_{2}, v_{3} \mid X\right)=p\left(v_{1} \mid X\right) p\left(v_{2}
 <div class="section" id="id18">
 <h5>（2）协作式深度学习：<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
 <p>使用 4.3.2 提到的 Probabilistic SDAE，CDL 模型的生成过程如下：</p>
-<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxt6vaxs3GUnAG9kwGiawEWHYoA8rdI5pULhXhJUk7HMXUzefunx2NCMyg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p><img alt="图片" src="https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210706131707ec.webp" /></p>
 <p>这里，λw、λn、λu、λs 和λVe 是超参数，Ci j 是类似于 CTr[112] 的置信度参数（如果 Ri j=1，Ci j=a，否则 Ci j=b)。注意，中间层 XL/2 充当收视率和内容信息之间的桥梁。该中间层以及潜在偏移量ϵj 是使 CDL 能够同时学习有效的特征表示并捕捉项目（和用户）之间的相似性和（隐式）关系的关键。与广义 SDAE 类似，为了提高计算效率，我们也可以把λ取为无穷大。</p>
 <p>当λs 接近正无穷大时，cdl 的图形模型如图 7 所示，其中，为表示简单起见，我们分别使用 x0，xl/2 和 xlin 来代替 xt0，j∗，xtL2，j∗和 xtL，j∗。</p>
 <p>注意，根据第 4.2 节中的定义，这里感知变量Ωp={{wl}，{bl}，{xl}，xc}，铰链变量Ωh={V}，以及任务变量Ωt={U，R}。</p>

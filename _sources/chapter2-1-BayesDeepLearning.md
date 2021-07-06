@@ -64,7 +64,7 @@ Hong Kong University of Science and Technology
 
 SDAE 的结构如上图所示，和 AE 不同的是，![图片](https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HW06nU1nJjPg9ads3EgQHxBNOj9yeFeGRt5MzLygT1d6ibicmUkg4IBuxiacXZxv9qSS/640?wx_fmt=svg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1) 可以看做输入数据！[图片](https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1) 加入噪声或者做了一些随机处理后的结果（比如可以把！[图片](https://mmbiz.qpic.cn/mmbiz_svg/kMaz9nc8bgIEdcLicp5Kd2P8l09AZmh4HvDFqkO0cVdySkKIPiaHKTbAGjic4RLDeTGmWl8tVt7rek6e8sPDYyPrDtZHVoBQlGX/640?wx_fmt=svg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1) 中的数据随机选 30%变为零）。所以 SDAE 做的就是试图把处理过的 corrupted data 恢复成 clean data。SDAE 可以转化为如下优化问题：
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtz40YBzeNTG1YsMMwmH83fK6rY181d6bnERMXyAnCkQUiabW62D5ARtg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210706131623d3.webp)
 
 ### 6.2.3 卷积神经网络（CNN）
 
@@ -114,7 +114,7 @@ PGM 的一个经典例子是潜狄拉克雷分配 ( Latent Dirichlet Allocation�
 
 在这一节中，将列出一些最新的 BDL 模型，它们在推荐系统、主题模型、控制等方面都有应用。这些模型的摘要如表 1 所示。
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxtBGyjGq16RGgZzMJaXTVVt91FgJrMiboxQIbtqjCaukCwvRIjTZUe8BQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_2021070613164773.webp)
 
 ### 6.4.1 贝叶斯神经网络与贝叶斯深度学习简史
 
@@ -368,7 +368,7 @@ $$
 
 使用 4.3.2 提到的 Probabilistic SDAE，CDL 模型的生成过程如下：
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/gYUsOT36vfp0G9xjCH5OudvPdPBngyxt6vaxs3GUnAG9kwGiawEWHYoA8rdI5pULhXhJUk7HMXUzefunx2NCMyg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](https://gitee.com/XiShanSnow/imagebed/raw/master/images/articles/bayesian_stat_20210706131707ec.webp)
 
 这里，λw、λn、λu、λs 和λVe 是超参数，Ci j 是类似于 CTr[112] 的置信度参数（如果 Ri j=1，Ci j=a，否则 Ci j=b)。注意，中间层 XL/2 充当收视率和内容信息之间的桥梁。该中间层以及潜在偏移量ϵj 是使 CDL 能够同时学习有效的特征表示并捕捉项目（和用户）之间的相似性和（隐式）关系的关键。与广义 SDAE 类似，为了提高计算效率，我们也可以把λ取为无穷大。
 
