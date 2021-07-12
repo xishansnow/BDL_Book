@@ -131,7 +131,13 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter2-1-BayesDeepLearning.html">
-   第 6 章 深层 BNN 研究综述
+   第 6 章 深层
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     BNN
+    </span>
+   </code>
+   研究综述
   </a>
  </li>
  <li class="toctree-l1">
@@ -788,8 +794,8 @@ q_{\boldsymbol{\theta}}(\boldsymbol{\omega})=\prod_{i=1}^{P} \mathcal{N}\left(w_
 <div class="section" id="mcmc">
 <h5>（2） 马尔可夫链蒙特卡洛（ <code class="docutils literal notranslate"><span class="pre">MCMC</span></code> ）的原理<a class="headerlink" href="#mcmc" title="Permalink to this headline">¶</a></h5>
 <p>蒙特卡洛方法为预测量期望值的计算提供了一条技术途径，但如果完全随机抽样的话，效率会非常低。因此，如果构造一个高效的采样方案，成为蒙特卡洛方法的一个关键问题。马尔可夫链蒙特卡洛（ <code class="docutils literal notranslate"><span class="pre">MCMC</span></code> ）由此应运而生。</p>
-<p><code class="docutils literal notranslate"><span class="pre">MCMC</span></code> 方法` 的核心思想是：马尔科夫链是一个数学对象，包含一系列状态以及状态之间的转移概率，如果每个状态转移到其他状态的概率只与当前状态相关，那么这个状态链就称为马尔科夫链。有这样一个马尔科夫链之后，我们可以任取一个初始点，然后依据状态转移概率随机游走。如果能够找到一个马尔科夫链，其状态转移概率正比于我们想要采样的分布（如贝叶斯分析中的后验分布），那么采样过程就变成了简单地在该状态链上移动的过程。</p>
-<p>因此， <code class="docutils literal notranslate"><span class="pre">MCMC</span></code> 方法` 可以从任意难以处理的分布中抽样，而且人们不用关心分布的具体形态，就能够使用如下蒙特卡洛积分（MC积分）进行预测：</p>
+<p><code class="docutils literal notranslate"><span class="pre">MCMC</span></code> 方法的核心思想是：马尔科夫链是一个数学对象，包含一系列状态以及状态之间的转移概率，如果每个状态转移到其他状态的概率只与当前状态相关，那么这个状态链就称为马尔科夫链。有这样一个马尔科夫链之后，我们可以任取一个初始点，然后依据状态转移概率随机游走。如果能够找到一个马尔科夫链，其状态转移概率正比于我们想要采样的分布（如贝叶斯分析中的后验分布），那么采样过程就变成了简单地在该状态链上移动的过程。</p>
+<p>因此， <code class="docutils literal notranslate"><span class="pre">MCMC</span></code> 方法可以从任意难以处理的分布中抽样，而且人们不用关心分布的具体形态，就能够使用如下蒙特卡洛积分（MC积分）进行预测：</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}_{\pi}[f]=\int f(\boldsymbol{\omega}) \pi(\boldsymbol{\omega} \mid \mathcal{D}) d \boldsymbol{\omega} \approx \frac{1}{N} \sum_{i=1}^{N} f\left(\boldsymbol{\omega}_{i}\right) \tag{22}
